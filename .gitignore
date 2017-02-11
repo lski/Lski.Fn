@@ -165,3 +165,5 @@ $RECYCLE.BIN/
 # NuGet
 nuget/nuget.*
 nuget/*.nupkg
+
+.vscode/**

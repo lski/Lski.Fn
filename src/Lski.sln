@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.25920.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.Fn", "Lski.Fn\Lski.Fn.csproj", "{298B50E4-04EE-44A0-BF3C-1787B14BC681}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lski.Fn.Tests", "Lski.Fn.Tests\Lski.Fn.Tests.csproj", "{1A81F991-A1A2-4876-91D5-B75CB3DC80A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{298B50E4-04EE-44A0-BF3C-1787B14BC681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{298B50E4-04EE-44A0-BF3C-1787B14BC681}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{298B50E4-04EE-44A0-BF3C-1787B14BC681}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{298B50E4-04EE-44A0-BF3C-1787B14BC681}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A81F991-A1A2-4876-91D5-B75CB3DC80A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A81F991-A1A2-4876-91D5-B75CB3DC80A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A81F991-A1A2-4876-91D5-B75CB3DC80A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A81F991-A1A2-4876-91D5-B75CB3DC80A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

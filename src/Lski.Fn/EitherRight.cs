@@ -23,7 +23,6 @@ namespace Lski.Fn
             return this;
         }
 
-        public T Do<T>(Func<TLeft, T> left, Func<TRight, T> right)
-            => right != null ? right(_value) : throw new ArgumentNullException(nameof(right));
+        public T Do<T>(Func<TLeft, T> left, Func<TRight, T> right) => right != null ? right(_value) : throw new ArgumentNullException(nameof(right));
     }
 }

@@ -11,7 +11,7 @@ namespace Lski.Fn.Tests
         public void SetLeftValueTest()
         {
 
-            var left = Either.Left<string, int>("a value");
+            var left = Either.First<string, int>("a value");
 
             var result = left.Do((val) => val + " plus", (v) => v.ToString());
 
@@ -34,7 +34,7 @@ namespace Lski.Fn.Tests
         [Fact]
         public void SetSameTypesTest()
         {
-            var right = Either.Left<string, string>("a left value");
+            var right = Either.First<string, string>("a left value");
 
             var result = right.Do((val) => val + " plus", (v) => v.ToString());
 
@@ -44,7 +44,7 @@ namespace Lski.Fn.Tests
         [Fact]
         public async Task DoAsyncTest()
         {
-            var right = Either.Left<string, string>("a left value");
+            var right = Either.First<string, string>("a left value");
 
             var result = await right.Do(async (val) => await Task.FromResult(val + " plus"), async (v) => await Task.FromResult(v.ToString()));
 
@@ -54,7 +54,7 @@ namespace Lski.Fn.Tests
         [Fact]
         public void ActionFiredTest() {
 
-            var left = Either.Left<string, string>("left");
+            var left = Either.First<string, string>("left");
 
             string result = null;
 

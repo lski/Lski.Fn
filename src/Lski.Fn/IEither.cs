@@ -2,10 +2,10 @@
 
 namespace Lski.Fn
 {
-    public interface IEither<TLeft, TRight>
+    public interface IEither<TFirst, TSecond>
     {
-        T Do<T>(Func<TLeft, T> left, Func<TRight, T> right);
+        T Do<T>(Func<TFirst, T> first, Func<TSecond, T> second);
 
-        IEither<TLeft, TRight> Do(Action<TLeft> left, Action<TRight> right);
+        IEither<TFirst, TSecond> Do(Action<TFirst> first, Action<TSecond> second);
     }
 }

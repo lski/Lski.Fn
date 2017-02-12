@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Lski.Fn</id>
+    <version>1.0.0-beta</version>
+    <title>Lski.Fn</title>
+    <authors>Lee Cooper</authors>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/lski/Lski.Fn</projectUrl>
+    <iconUrl>https://www.gravatar.com/avatar/e28af3724cd70eb082bdb84063964ea1</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Basic C# functional classes</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Functional</tags>
+  </metadata>
+  <files>
+    <file src="..\src\lski.fn\bin\Release\netstandard1.1\Lski.Fn.dll" target="lib\netstandard1.1\Lski.Fn.dll" />
+    <!--<file src="bin\Release\netstandard1.1\Lski.Fn.xml" target="lib\netstandard1.1\Lski.Fn.xml" />-->
+  </files>
+</package>

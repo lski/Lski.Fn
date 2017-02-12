@@ -12,7 +12,7 @@ namespace Lski.Fn
         {
             if (data == null)
             {
-                throw new ArgumentNullException("A successful result cant be null");
+                throw new ArgumentNullException("A success should not be null");
             }
 
             _data = data;

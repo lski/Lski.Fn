@@ -16,7 +16,7 @@ namespace Lski.Fn
 
         public bool IsSuccess => _success;
 
-        public virtual string Error => throw new InvalidOperationException("Success doesnt have an error");
+        public virtual string Error => throw new InvalidOperationException("Success should not have an error");
 
         [DebuggerStepThrough]
         public static Result Ok() => new ResultSuccess();

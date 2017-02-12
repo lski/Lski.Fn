@@ -2,7 +2,7 @@
 
 namespace Lski.Fn
 {
-    public abstract class Result<T> : Result where T : class, struct
+    public abstract class Result<T> : Result
     {
         public virtual T Value => throw new InvalidOperationException("Failure should not have a value");
 

@@ -2,20 +2,26 @@
 
 namespace Lski.Fn
 {
-    public struct Maybe<T>
+    public class Maybe<T>
     {
         private readonly T _value;
 
-        internal Maybe(T value)
+        private Maybe()
         {
-            _value = value;
         }
 
+        internal Maybe(T value)
+        {
+            _value = value != null ? value : throw new ArgumentNullException(nameof(value), "The value for Maybe can not be null");
+        }
+        
         public bool HasValue => _value != null;
 
         public bool HasNoValue => !HasValue;
 
         public T Value => HasValue ? _value : throw new InvalidOperationException("Value is null");
+
+        public static Maybe<T> None() => new Maybe<T>();
 
         public static bool operator ==(Maybe<T> maybe, T value) => maybe.HasValue && maybe.Value.Equals(value);
 

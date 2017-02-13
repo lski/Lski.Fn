@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Net;
 
 namespace Lski.Fn
 {
     /// <summary>
-    /// A Maybe object is a wrapper around a potentially null value. So either has a value or contains "nothing".
+    /// A Maybe object is a wrapper around a potentially null value. So either has a value or
+    /// contains "nothing".
     /// </summary>
     public static class Maybe
     {
@@ -15,13 +17,13 @@ namespace Lski.Fn
         /// <summary>
         /// Convert a value to a Maybe object of the same type
         /// </summary>
-        public static Maybe<T> ToMaybe<T>(this T value) => new Maybe<T>(value);
+        public static Maybe<T> ToMaybe<T>(this T value) => value == null ? Maybe<T>.None() : new Maybe<T>(value);
 
         /// <summary>
         /// Returns either the stored value or the default if contains nothing
         /// </summary>
         public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = default(T)) => maybe.HasValue ? maybe.Value : defaultValue;
-        
+
         /// <summary>
         /// Convert the maybe into a result, a value means success, nothing means failure
         /// </summary>
@@ -37,7 +39,6 @@ namespace Lski.Fn
         /// </summary>
         public static Maybe<T> Do<T>(this Maybe<T> maybe, Action<T> action)
         {
-
             if (maybe.HasValue)
             {
                 action(maybe.Value);
@@ -45,5 +46,15 @@ namespace Lski.Fn
 
             return maybe;
         }
+
+        /// <summary>
+        /// Alias for Bind
+        /// </summary>
+        public static Maybe<TOut> Do<T, TOut>(this Maybe<T> maybe, Func<T, Maybe<TOut>> func) => maybe.Bind(func);
+
+        /// <summary>
+        /// If contains a value performs the function and returns a new Maybe, otherwise returns a "none" Maybe
+        /// </summary>
+        public static Maybe<TOut> Bind<T, TOut>(this Maybe<T> maybe, Func<T, Maybe<TOut>> func) => maybe.HasValue ? func(maybe.Value) : Maybe<TOut>.None();
     }
 }

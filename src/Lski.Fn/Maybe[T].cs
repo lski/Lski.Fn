@@ -4,7 +4,7 @@ namespace Lski.Fn
 {
     public struct Maybe<T>
     {
-        private T _value;
+        private readonly T _value;
 
         internal Maybe(T value)
         {
@@ -17,7 +17,7 @@ namespace Lski.Fn
 
         public T Value => HasValue ? _value : throw new InvalidOperationException("Value is null");
 
-        public static bool operator ==(Maybe<T> maybe, T value) => maybe.HasNoValue ? false : maybe.Value.Equals(value);
+        public static bool operator ==(Maybe<T> maybe, T value) => maybe.HasValue && maybe.Value.Equals(value);
 
         public static bool operator !=(Maybe<T> maybe, T value) => !(maybe == value);
 

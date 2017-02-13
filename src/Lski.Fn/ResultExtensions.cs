@@ -46,9 +46,9 @@ namespace Lski.Fn
             return result;
         }
 
-        public static Result OnFailure(this Result result, Func<string, Result> func) => result.IsFailure ? func(result.Error) : result;
+        public static Result OnFailure(this Result result, Func<Error, Result> func) => result.IsFailure ? func(result.Error) : result;
 
-        public static Result OnFailure(this Result result, Action<string> action)
+        public static Result OnFailure(this Result result, Action<Error> action)
         {
             if (result.IsSuccess)
             {
@@ -68,7 +68,7 @@ namespace Lski.Fn
             return result;
         }
 
-        public static Result<T> OnFailure<T>(this Result<T> result, Func<string, Result<T>> func) => result.IsFailure ? func(result.Error) : result;
+        public static Result<T> OnFailure<T>(this Result<T> result, Func<Error, Result<T>> func) => result.IsFailure ? func(result.Error) : result;
 
         public static Result<T> OnFailure<T>(this Result<T> result, Action<string> action)
         {

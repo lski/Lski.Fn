@@ -26,10 +26,9 @@ namespace Lski.Fn.Tests
         [Fact]
         public void ErrorIsCorrect()
         {
-
             var result = Result.Fail("error");
 
-            result.Error.Should().Be("error");
+            result.Error.ToString().Should().Be("error");
 
             var result2 = Result.Fail<int>("error");
 

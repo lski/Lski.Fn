@@ -5,18 +5,16 @@ namespace Lski.Fn
 {
     public abstract class Result
     {
-        private bool _success;
-
         protected Result(bool success)
         {
-            _success = success;
+            IsSuccess = success;
         }
 
-        public bool IsFailure => !_success;
+        public bool IsFailure => !IsSuccess;
 
-        public bool IsSuccess => _success;
+        public bool IsSuccess { get; }
 
-        public virtual string Error => throw new InvalidOperationException("Success should not have an error");
+        public virtual Error Error => throw new InvalidOperationException("Success should not have an error");
 
         [DebuggerStepThrough]
         public static Result Ok() => new ResultSuccess();
@@ -29,5 +27,11 @@ namespace Lski.Fn
 
         [DebuggerStepThrough]
         public static Result<T> Fail<T>(string error) => new ResultFailed<T>(error);
+
+        [DebuggerStepThrough]
+        public static Result Fail(Error error) => new ResultFailed(error);
+
+        [DebuggerStepThrough]
+        public static Result<T> Fail<T>(Error error) => new ResultFailed<T>(error);
     }
 }

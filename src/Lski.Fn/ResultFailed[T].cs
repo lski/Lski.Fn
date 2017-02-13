@@ -2,13 +2,16 @@
 {
     internal class ResultFailed<T> : Result<T>
     {
-        private string _error;
-
-        public override string Error => _error;
+        public override Error Error { get; }
 
         public ResultFailed(string error) : base(false)
         {
-            _error = error;
+            Error = new Error(error);
+        }
+
+        public ResultFailed(Error error) : base(false)
+        {
+            Error = error;
         }
     }
 }

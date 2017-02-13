@@ -4,20 +4,24 @@ using System.Net;
 namespace Lski.Fn
 {
     /// <summary>
-    /// A Maybe object is a wrapper around a potentially null value. So either has a value or
-    /// contains "nothing".
+    /// A Maybe object is a wrapper around a potentially null value. So either has a value or contains "nothing" of its particular type
     /// </summary>
     public static class Maybe
     {
         /// <summary>
+        /// Creates an empty Maybe of the specified type that represents "nothing"
+        /// </summary>
+        public static Maybe<T> None<T>() => new Maybe<T>();
+
+        /// <summary>
         /// Create a new Maybe object of the type passed
         /// </summary>
-        public static Maybe<T> Create<T>(T value) => new Maybe<T>(value);
+        public static Maybe<T> Create<T>(T value) => value == null ? Maybe<T>.None() : new Maybe<T>(value);
 
         /// <summary>
         /// Convert a value to a Maybe object of the same type
         /// </summary>
-        public static Maybe<T> ToMaybe<T>(this T value) => value == null ? Maybe<T>.None() : new Maybe<T>(value);
+        public static Maybe<T> ToMaybe<T>(this T value) => Create<T>(value);
 
         /// <summary>
         /// Returns either the stored value or the default if contains nothing

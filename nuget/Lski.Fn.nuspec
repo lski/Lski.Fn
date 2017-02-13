@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Lski.Fn</id>
-    <version>1.0.0-beta3</version>
+    <version>1.0.0-beta4</version>
     <title>Lski.Fn</title>
     <authors>Lee Cooper</authors>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
@@ -16,6 +16,6 @@
   </metadata>
   <files>
     <file src="..\src\lski.fn\bin\Release\netstandard1.1\Lski.Fn.dll" target="lib\netstandard1.1\Lski.Fn.dll" />
-    <!--<file src="bin\Release\netstandard1.1\Lski.Fn.xml" target="lib\netstandard1.1\Lski.Fn.xml" />-->
+    <file src="..\src\lski.fn\bin\Release\netstandard1.1\Lski.Fn.xml" target="lib\netstandard1.1\Lski.Fn.xml" />
   </files>
 </package>

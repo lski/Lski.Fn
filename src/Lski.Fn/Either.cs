@@ -4,7 +4,7 @@
     {
         public static IEither<TFirst, TSecond> First<TFirst, TSecond>(TFirst value) => new EitherFirst<TFirst, TSecond>(value);
 
-        public static IEither<TFirst, TSecond> Right<TFirst, TSecond>(TSecond value) => new EitherSecond<TFirst, TSecond>(value);
+        public static IEither<TFirst, TSecond> Second<TFirst, TSecond>(TSecond value) => new EitherSecond<TFirst, TSecond>(value);
 
         public static IEither<TFirst, TSecond> ToFirst<TFirst, TSecond>(this TFirst value) => new EitherFirst<TFirst, TSecond>(value);
 

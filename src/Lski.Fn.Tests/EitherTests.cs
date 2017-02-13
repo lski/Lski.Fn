@@ -22,13 +22,11 @@ namespace Lski.Fn.Tests
         public void SetRightValueTest()
         {
 
-            var right = Either.Right<string, int>(1);
+            var right = Either.Second<string, int>(1);
 
             var result = right.Do((val) => val + " plus", (v) => v.ToString());
 
             result.Should().Be("1");
-
-            
         }
 
         [Fact]
@@ -52,15 +50,18 @@ namespace Lski.Fn.Tests
         }
 
         [Fact]
-        public void ActionFiredTest() {
+        public void ActionFiredTest()
+        {
 
             var left = Either.First<string, string>("left");
 
             string result = null;
 
-            left.Do((l) => {
+            left.Do((l) =>
+            {
                 result = l;
-            }, (r) => {
+            }, (r) =>
+            {
                 result = r;
             });
 

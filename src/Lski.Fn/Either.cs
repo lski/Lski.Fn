@@ -2,12 +2,12 @@
 {
     public static class Either
     {
-        public static IEither<TFirst, TSecond> First<TFirst, TSecond>(TFirst value) => new EitherFirst<TFirst, TSecond>(value);
+        public static IEither<TLeft, TRight> Left<TLeft, TRight>(TLeft value) => new EitherLeft<TLeft, TRight>(value);
 
-        public static IEither<TFirst, TSecond> Second<TFirst, TSecond>(TSecond value) => new EitherSecond<TFirst, TSecond>(value);
+        public static IEither<TLeft, TRight> Right<TLeft, TRight>(TRight value) => new EitherRight<TLeft, TRight>(value);
 
-        public static IEither<TFirst, TSecond> ToFirst<TFirst, TSecond>(this TFirst value) => new EitherFirst<TFirst, TSecond>(value);
+        public static IEither<TLeft, TRight> ToLeft<TLeft, TRight>(this TLeft value) => new EitherLeft<TLeft, TRight>(value);
 
-        public static IEither<TFirst, TSecond> ToSecond<TFirst, TSecond>(this TSecond value) => new EitherSecond<TFirst, TSecond>(value);
+        public static IEither<TLeft, TRight> ToRight<TLeft, TRight>(this TRight value) => new EitherRight<TLeft, TRight>(value);
     }
 }

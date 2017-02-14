@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 using System.Threading.Tasks;
 
@@ -66,6 +65,38 @@ namespace Lski.Fn.Tests
             });
 
             result.Should().Be("left");
+        }
+
+        [Fact]
+        public void LeftOnlyActionTest()
+        {
+            var either = Either.Left<string, string>("left");
+
+            var resultOne = either.Left((val) => 10);
+
+            resultOne.Should().Be(10);
+
+            var eitherTwo = Either.Left<string, string>("left");
+
+            var resultTwo = eitherTwo.Right(val => 100);
+
+            resultTwo.Should().Be(0);
+        }
+
+        [Fact]
+        public void RightOnlyActionTest()
+        {
+            var either = Either.Right<string, string>("right");
+
+            var resultOne = either.Right((val) => 10);
+
+            resultOne.Should().Be(10);
+
+            var eitherTwo = Either.Right<string, string>("right");
+
+            var resultTwo = eitherTwo.Left(val => 100);
+
+            resultTwo.Should().Be(0);
         }
     }
 }

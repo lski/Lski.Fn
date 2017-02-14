@@ -23,5 +23,25 @@ namespace Lski.Fn
         }
 
         public T Do<T>(Func<TLeft, T> left, Func<TRight, T> right) => right != null ? right(_value) : throw new ArgumentNullException(nameof(right));
+
+        public T Right<T>(Func<TRight, T> func) => func != null ? func(_value) : throw new ArgumentNullException(nameof(func));
+
+        public T Left<T>(Func<TLeft, T> func) => default(T);
+
+        public IEither<TLeft, TRight> Right(Action<TRight> action)
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+            action(_value);
+            return this;
+        }
+
+        public IEither<TLeft, TRight> Left(Action<TLeft> action) => this;
+        
+        public bool IsLeft => false;
+
+        public bool IsRight => true;
     }
 }

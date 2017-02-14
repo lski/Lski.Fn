@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using System;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace Lski.Fn.Tests
 {
@@ -75,7 +76,8 @@ namespace Lski.Fn.Tests
             var result = Result.Fail<string>("error");
             var run = false;
 
-            result.OnFailure((err) => {
+            result.OnFailure((err) =>
+            {
 
                 err.Should().Be("error");
                 run = true;
@@ -94,6 +96,56 @@ namespace Lski.Fn.Tests
             result.OnSuccess(() => { run = true; });
 
             run.Should().BeFalse();
+        }
+
+        [Fact]
+        public void OnSuccessChain()
+        {
+            var result = "success".ToResult()
+                .OnSuccess((val) => val + 1)
+                .OnSuccess(val => val + 2)
+                .OnSuccess(val => val + 3);
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be("success123");
+
+            result = result.OnSuccess(val => 1)
+                .OnSuccess(val => val + 1)
+                .OnSuccess(val => val + "");
+
+            result.IsSuccess.Should().BeTrue();
+            result.Value.Should().Be("2");
+
+            Action a = async () =>
+            {
+                var taskResult = await Task.FromResult("task".ToResult())
+                .OnSuccess(val => val + " ")
+                .OnSuccess(val => val + "is great");
+
+                taskResult.IsSuccess.Should().BeTrue();
+                taskResult.Value.Should().Be("task is great");
+            };
+        }
+
+        public void OnFailureAsyncTests()
+        {
+            var result = Result.Fail<string>("error")
+                .OnFailure(val => Result.Ok("we are ok"))
+                .OnFailure(val => val.ToString())
+                .OnSuccess(val => "we should not hit here at all")
+                .OnFailure(val => Result.Fail(val + " no we arent"));
+
+            result.IsFailure.Should().BeTrue();
+            result.Value.Should().Be("we are ok no we arent");
+
+            Action a = () =>
+            {
+                var taskResult = Task.FromResult(Result.Fail<string>("error"))
+                    .OnFailure(val => Result.Fail(val + " boo"));
+
+                result.IsFailure.Should().BeTrue();
+                result.Value.Should().Be("error boo");
+            };
         }
     }
 }

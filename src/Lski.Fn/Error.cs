@@ -1,3 +1,5 @@
+using System;
+
 namespace Lski.Fn
 {
     public class Error
@@ -6,6 +8,11 @@ namespace Lski.Fn
 
         public Error(string message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message), "An error object requires an error message");
+            }
+
             _message = message;
         }
 

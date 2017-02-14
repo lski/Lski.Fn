@@ -1,16 +1,28 @@
-﻿namespace Lski.Fn
+﻿using System;
+
+namespace Lski.Fn
 {
     internal class ResultFailed<T> : Result<T>
     {
         public override Error Error { get; }
 
-        public ResultFailed(string error) : base(false)
+        public ResultFailed(string message) : base(false)
         {
-            Error = new Error(error);
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message), "An unsuccesful result requires an error message");
+            }
+
+            Error = new Error(message);
         }
 
         public ResultFailed(Error error) : base(false)
         {
+            if (error == null)
+            {
+                throw new ArgumentNullException(nameof(error), "An unsuccesful result requires an error");
+            }
+
             Error = error;
         }
     }

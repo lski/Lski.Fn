@@ -11,28 +11,26 @@ Used to handle the "none happy path" basically allowing a developer to handle wh
 
 Create and use a Result:
 ```csharp
-var result = "success".ToResult(); // or var result = Result.Ok("success");
+var result = "success".ToResult();  // or var result = Result.Ok("success");
 if (result.IsSuccess) {
-    // Do something
+    // If IsSuccess is true, Value can not be null
 }
 ``` 
 Or alternatively:
 ```csharp
-var result = "success".ToResult()
-    .OnSuccess((val) => {
-        // Do stuff
-    });
+"success".ToResult().OnSuccess((val) => {
+    // Do stuff
+});
 ``` 
 If a result is a failure:
 ```csharp
-var result = Result.Fail<string>("An error occured")
-    .OnFailure((err) => {
-        // Do Stuff
-    });
+Result.Fail<string>("An error occured").OnFailure((err) => {
+    // Do Stuff
+});
 ```
 Chain together:
 ```csharp
-var result = Result.Ok("success")
+Result.Ok("success")
     .OnFailure((err) => {
         // NOT run
     })
@@ -48,9 +46,10 @@ You could ask whats the advantage to the above, but in large quanities of code t
 Generally, although debated, using null is not a recommended practice (see links in references), we can use Maybe<T> as a way of wrapping a potentially null value. Using Maybe<T> does two things, it makes it obvious to the subscriber of the variable that the value can be empty, but also it means type checking with "is" works as expected.
 
 ```csharp
-var myVar = "".Maybe();
+var myVar = "a value".Maybe();
 // or
-var myVar = Maybe<string>.Create(null);
+var myVar = Maybe.Create<string>("another value");
+var myVar = Maybe<string>.None();
 ``` 
 Then use HasValue to test for a null value
 ```csharp
@@ -62,7 +61,7 @@ if (myVar.HasValue) {
 Or use a lamda:
 ```csharp
 myVar.Do((val) => {
-    // We know fr certain val is not null
+    // We know for certain val is not null and only runs if the maybe contains a value
 });
 ```
 Type checking:
@@ -72,11 +71,17 @@ var isNullAString = foo is string;
 // isNullAString == false
 
 var bar = Maybe<string>(null);
-var isMaybe = bar is Maybe<string>;
-// isMaybe == true
+var isNullMaybe = bar is Maybe<string>;
+// isNullMaybe == true
 ```
 
-__*NB*__ The Maybe pattern is sometimes called "Option"
+Access the underlying value, providing a default value
+```csharp
+var maybe = Maybe<string>.None();
+var val = maybe.Unwrap("a default value");
+```
+
+__*NB*__ The Maybe pattern is sometimes called "Option" and is in F#
 
 ## Either
 
@@ -93,6 +98,11 @@ either.Do((val) = {
 (val) => {
     // Does not run
 });
+```
+
+Alternatively you can be selective which side you run.
+```csharp
+either.Left((val) => Console.WriteLine(val));
 ```
 
 ### References

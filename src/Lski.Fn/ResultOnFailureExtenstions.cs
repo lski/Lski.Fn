@@ -117,5 +117,111 @@ namespace Lski.Fn
             var result = await task.ConfigureAwait(false);
             return result.OnFailure(action);
         }
+
+
+
+        [DebuggerStepThrough]
+        public static async Task<Result> OnFailure(this Result result, Func<Error, Task<Result>> func)
+        {
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            return await func(result.Error).ConfigureAwait(false);
+        }
+
+        [DebuggerStepThrough]
+        public static async Task<Result<T>> OnFailure<T>(this Result<T> result, Func<Error, Task<Result<T>>> func)
+        {
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            return await func(result.Error).ConfigureAwait(false);
+        }
+
+        [DebuggerStepThrough]
+        public static async Task<Result<T>> OnFailure<T>(this Result<T> result, Func<Error, Task<Error>> func)
+        {
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            var err = await func(result.Error).ConfigureAwait(false);
+
+            return Result.Fail<T>(err);
+        }
+
+        [DebuggerStepThrough]
+        public static async Task<Result<T>> OnFailure<T>(this Result<T> result, Func<Error, Task<string>> func)
+        {
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            var err = await func(result.Error).ConfigureAwait(false);
+
+            return Result.Fail<T>(err);
+        }
+
+        [DebuggerStepThrough]
+        public static async Task<Result> OnFailure(this Task<Result> task, Func<Error, Task<Result>> func)
+        {
+            var result = await task.ConfigureAwait(false);
+
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            return await func(result.Error).ConfigureAwait(false);
+        }
+
+        [DebuggerStepThrough]
+        public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Func<Error, Task<Result<T>>> func)
+        {
+            var result = await task.ConfigureAwait(false);
+
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            return await func(result.Error).ConfigureAwait(false);
+        }
+
+        [DebuggerStepThrough]
+        public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Func<Error, Task<Error>> func)
+        {
+            var result = await task.ConfigureAwait(false);
+
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            var err = await func(result.Error).ConfigureAwait(false);
+
+            return Result.Fail<T>(err);
+        }
+
+        [DebuggerStepThrough]
+        public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Func<Error, Task<string>> func)
+        {
+            var result = await task.ConfigureAwait(false);
+
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            var err = await func(result.Error).ConfigureAwait(false);
+
+            return Result.Fail<T>(err);
+        }
     }
 }

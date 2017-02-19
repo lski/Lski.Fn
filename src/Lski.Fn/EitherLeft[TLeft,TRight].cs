@@ -14,7 +14,6 @@ namespace Lski.Fn
 
         public IEither<TLeft, TRight> Do(Action<TLeft> left, Action<TRight> right)
         {
-
             if (left == null)
             {
                 throw new ArgumentNullException(nameof(left));

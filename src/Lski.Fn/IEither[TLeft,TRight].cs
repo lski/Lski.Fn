@@ -21,12 +21,12 @@ namespace Lski.Fn
         /// <summary>
         /// Runs only the appropriate function and returns the value from than function.
         /// </summary>
-        T Do<T>(Func<TLeft, T> left, Func<TRight, T> right);
+        T Do<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc);
 
         /// <summary>
         /// Runs only the appropriate action and returns this either object unchanged.
         /// </summary>
-        IEither<TLeft, TRight> Do(Action<TLeft> left, Action<TRight> right);
+        IEither<TLeft, TRight> Do(Action<TLeft> leftAct, Action<TRight> rightAct);
 
         /// <summary>
         /// Returns the value for right, if this is left sided it throws an exception

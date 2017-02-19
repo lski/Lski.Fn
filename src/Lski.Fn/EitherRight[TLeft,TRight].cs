@@ -15,18 +15,18 @@ namespace Lski.Fn
 
         public bool IsRight => true;
 
-        public IEither<TLeft, TRight> Do(Action<TLeft> left, Action<TRight> right)
+        public IEither<TLeft, TRight> Do(Action<TLeft> leftAct, Action<TRight> rightAct)
         {
-            if (right == null)
+            if (rightAct == null)
             {
-                throw new ArgumentNullException(nameof(right));
+                throw new ArgumentNullException(nameof(rightAct));
             }
 
-            right(_value);
+            rightAct(_value);
             return this;
         }
 
-        public T Do<T>(Func<TLeft, T> left, Func<TRight, T> right) => right != null ? right(_value) : throw new ArgumentNullException(nameof(right));
+        public T Do<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc) => rightFunc != null ? rightFunc(_value) : throw new ArgumentNullException(nameof(rightFunc));
 
         // public Task<T> Do<T>(Func<Task<TLeft>, T> left, Func<Task<TRight>, T> right)
         // {

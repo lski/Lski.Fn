@@ -100,11 +100,6 @@ namespace Lski.Fn
             var result = await task.ConfigureAwait(false);
             return result.OnSuccess(action);
         }
-
-
-
-
-
         
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnSuccess<T>(this Result result, Func<Task<Result<T>>> func)

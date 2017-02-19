@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Lski.Fn
 {
+    /// <summary>
+    /// Additional functions for Result and Result&lt;T&gt; objects
+    /// </summary>
     public static partial class ResultExtensions
     {
         /// <summary>

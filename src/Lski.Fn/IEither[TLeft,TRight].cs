@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace Lski.Fn
 {
     /// <summary>
-    /// Represents an Immutable wrapper that can contain either one value or another. So can be described as being left or right sided.
+    /// Represents an Immutable wrapper that can contain either one value or another. So can be
+    /// described as being left or right sided.
     /// </summary>
-    public interface IEither<TLeft, TRight>
+    public interface IEither<out TLeft, out TRight>
     {
         /// <summary>
         /// States if this either is left sided or not

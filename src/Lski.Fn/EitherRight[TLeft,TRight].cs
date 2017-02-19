@@ -11,6 +11,10 @@ namespace Lski.Fn
             _value = value;
         }
 
+        public bool IsLeft => false;
+
+        public bool IsRight => true;
+
         public IEither<TLeft, TRight> Do(Action<TLeft> left, Action<TRight> right)
         {
             if (right == null)
@@ -24,9 +28,14 @@ namespace Lski.Fn
 
         public T Do<T>(Func<TLeft, T> left, Func<TRight, T> right) => right != null ? right(_value) : throw new ArgumentNullException(nameof(right));
 
-        public T Right<T>(Func<TRight, T> func) => func != null ? func(_value) : throw new ArgumentNullException(nameof(func));
+        // public Task<T> Do<T>(Func<Task<TLeft>, T> left, Func<Task<TRight>, T> right)
+        // {
+            
+        // }
 
-        public T Left<T>(Func<TLeft, T> func) => default(T);
+        public TRight Right() => _value;
+
+        public T Right<T>(Func<TRight, T> func) => func != null ? func(_value) : throw new ArgumentNullException(nameof(func));
 
         public IEither<TLeft, TRight> Right(Action<TRight> action)
         {
@@ -38,10 +47,10 @@ namespace Lski.Fn
             return this;
         }
 
-        public IEither<TLeft, TRight> Left(Action<TLeft> action) => this;
-        
-        public bool IsLeft => false;
+        public TLeft Left() => throw new InvalidOperationException("A right-side either does not contain a left value");
 
-        public bool IsRight => true;
+        public T Left<T>(Func<TLeft, T> func) => default(T);
+
+        public IEither<TLeft, TRight> Left(Action<TLeft> action) => this;   
     }
 }

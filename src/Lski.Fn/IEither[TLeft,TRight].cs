@@ -37,8 +37,11 @@ namespace Lski.Fn
         TRight Right();
 
         /// <summary>
-        /// Runs only if this object is right sided, otherwise returns default(T)
+        /// Runs only if this object is right sided, otherwise throws an exception
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if this is a Left sided either, use in combination with IsLeft/IsRight
+        /// </exception>
         T Right<T>(Func<TRight, T> func);
 
         /// <summary>
@@ -55,43 +58,19 @@ namespace Lski.Fn
         TLeft Left();
 
         /// <summary>
-        /// Runs only if this object is left sided, otherwise returns default(T)
+        /// Runs only if this object is left sided, otherwise throws an exception
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if this is a Right sided either, use in combination with IsLeft/IsRight
+        /// </exception>
         T Left<T>(Func<TLeft, T> func);
 
         /// <summary>
         /// Runs only if this object is left sided, and returns this either object unchanged.
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if this is a Right sided either, use in combination with IsLeft/IsRight
+        /// </exception>
         IEither<TLeft, TRight> Left(Action<TLeft> action);
-
-        //  /// <summary>
-        // /// Runs only the appropriate function and returns the value from than function.
-        // /// </summary>
-        // Task<T> Do<T>(Func<Task<TLeft>, T> left, Func<Task<TRight>, T> right);
-
-        // /// <summary>
-        // /// Runs only the appropriate action and returns this either object unchanged.
-        // /// </summary>
-        // IEither<TLeft, TRight> Do(Action<TLeft> left, Action<TRight> right);
-
-        // /// <summary>
-        // /// Runs only if this object is right sided, otherwise returns default(T)
-        // /// </summary>
-        // T Right<T>(Func<TRight, T> func);
-
-        // /// <summary>
-        // /// Runs only the appropriate function and returns this either object unchanged.
-        // /// </summary>
-        // IEither<TLeft, TRight> Right(Action<TRight> action);
-
-        // /// <summary>
-        // /// Runs only if this object is left sided, otherwise returns default(T)
-        // /// </summary>
-        // T Left<T>(Func<TLeft, T> func);
-
-        // /// <summary>
-        // /// Runs only if this object is left sided, and returns this either object unchanged.
-        // /// </summary>
-        // IEither<TLeft, TRight> Left(Action<TLeft> action);
     }
 }

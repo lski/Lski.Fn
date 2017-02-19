@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Lski.Fn
 {
@@ -27,10 +28,15 @@ namespace Lski.Fn
         }
 
         public T Do<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc) => rightFunc != null ? rightFunc(_value) : throw new ArgumentNullException(nameof(rightFunc));
-
-        // public Task<T> Do<T>(Func<Task<TLeft>, T> left, Func<Task<TRight>, T> right)
+            /// EXTENSION METHOD!
+        // public async Task<T> Do<T>(Func<Task<TLeft>, T> leftFunc, Func<Task<TRight>, T> rightFunc)
         // {
-            
+        //     if (rightFunc == null)
+        //     {
+        //         throw new ArgumentNullException(nameof(rightFunc));
+        //     }
+
+        //     return await rightFunc(_value);
         // }
 
         public TRight Right() => _value;

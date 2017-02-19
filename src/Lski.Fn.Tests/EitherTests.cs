@@ -17,6 +17,19 @@ namespace Lski.Fn.Tests
             result.Should().Be("a value plus");
         }
 
+        public async Task AsyncTest() {
+
+            var either = Either.Left<string, string>("left");
+
+            var val = await either.Do(async (vall) => await Blah("left"), async (valr) => await Blah("right"));
+
+            val.Should().Be("left");
+        }
+
+        public async Task<string> Blah(string blah) {
+            return await Task.FromResult("");
+        }
+
         [Fact]
         public void SetRightValueTest()
         {

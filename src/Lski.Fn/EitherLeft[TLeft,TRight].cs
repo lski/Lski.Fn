@@ -12,31 +12,31 @@ namespace Lski.Fn
             _value = value;
         }
 
-        public IEither<TLeft, TRight> Do(Action<TLeft> left, Action<TRight> right)
-        {
-            if (left == null)
-            {
-                throw new ArgumentNullException(nameof(left));
-            }
-
-            left(_value);
-            return this;
-        }
-
         public bool IsLeft => true;
 
         public bool IsRight => false;
 
-        public T Do<T>(Func<TLeft, T> left, Func<TRight, T> right) => left != null ? left(_value) : throw new ArgumentNullException(nameof(left));
+        public IEither<TLeft, TRight> Do(Action<TLeft> leftAct, Action<TRight> rightAct)
+        {
+            if (leftAct == null)
+            {
+                throw new ArgumentNullException(nameof(leftAct));
+            }
 
-        // public async Task<T> Do<T>(Func<Task<TLeft>, T> left, Func<Task<TRight>, T> right)
+            leftAct(_value);
+            return this;
+        }
+
+        public T Do<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc) => leftFunc != null ? leftFunc(_value) : throw new ArgumentNullException(nameof(leftFunc));
+
+        // public async Task<T> Do<T>(Func<TLeft, Task<T>> left, Func<TRight, Task<T>> right)
         // {
         //     if (left == null)
         //     {
         //         throw new ArgumentNullException(nameof(left));
         //     }
 
-        //     var val = await left(_value)
+        //     return await left(_value);
         // }
 
         public TLeft Left() => _value;
@@ -58,6 +58,5 @@ namespace Lski.Fn
         public T Right<T>(Func<TRight, T> func) => default(T);
 
         public IEither<TLeft, TRight> Right(Action<TRight> action) => this;
-
     }
 }

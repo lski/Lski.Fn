@@ -78,6 +78,75 @@ namespace Lski.Fn
         /// Converts a value of the left side type to a left-sided either
         /// </summary>
         public static implicit operator Either<TLeft, TRight>(TRight right) => Either.Right<TLeft, TRight>(right);
+
+        /// <summary>
+        /// Returns the "ToString" of the underlying value
+        /// </summary>
+        public override string ToString() => this.IsLeft ? $"{this.Left()}" : $"{this.Right()}";
+
+        /// <summary>
+        /// Get the hash code of the underlying value
+        /// </summary>
+        public override int GetHashCode() => this.IsLeft ? this.Left().GetHashCode() : this.Right().GetHashCode();
+
+        /// <summary>
+        /// Compare the underlying values
+        /// </summary>
+        public static bool operator ==(Either<TLeft, TRight> first, Either<TLeft, TRight> second) => first.Equals(second);
+
+        /// <summary>
+        /// Compare the underlying values
+        /// </summary>
+        public static bool operator !=(Either<TLeft, TRight> first, Either<TLeft, TRight> second) => !(first == second);
+
+        /// <summary>
+        /// Compare the underlying values
+        /// </summary>
+        public override bool Equals(object obj)
+        {
+            Either<TLeft, TRight> other;
+
+            if (obj is Either<TLeft, TRight>)
+            {
+                other = (Either<TLeft, TRight>)obj;
+            }
+            else if (obj is TLeft)
+            {
+                other = (TLeft)obj;
+            }
+            else if (obj is TRight)
+            {
+                other = (TRight)obj;
+            }
+            else
+            {
+                return false;
+            }
+
+            return Equals(other);
+        }
+
+        /// <summary>
+        /// Compare the underlying values
+        /// </summary>
+        public bool Equals(Either<TLeft, TRight> other)
+        {
+            if (this.IsLeft != other.IsLeft)
+            {
+                return false;
+            }
+
+            return this.Do(l =>
+            {
+                var otherLeft = other.Left();
+                return (l != null && l.Equals(otherLeft)) || (l == null && otherLeft == null);
+            }, 
+            r =>
+            {
+                var otherRight = other.Right();
+                return (r != null && r.Equals(otherRight)) || (r == null && otherRight == null);
+            });
+        }
     }
 
 

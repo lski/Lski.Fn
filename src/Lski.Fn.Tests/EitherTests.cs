@@ -112,8 +112,8 @@ namespace Lski.Fn.Tests
         }
 
         [Fact]
-        public void CastTests() {
-
+        public void CastTests()
+        {
             Either<string, int> either = 1;
 
             either.Right().Should().Be(1);
@@ -125,6 +125,21 @@ namespace Lski.Fn.Tests
             Action a = () => { either.Left(); };
 
             a.ShouldThrow<InvalidOperationException>();
+        }
+
+        public void CompareTests()
+        {
+            var e1 = Either.Left<string, int>("a");
+            var e2 = Either.Left<string, int>("a");
+            var e3 = Either.Right<string, int>(1);
+
+            (e1 == e2).Should().BeTrue();
+            (e1 == e3).Should().BeFalse();
+
+            var e4 = Either.Right<string, string>("a");
+            var e5 = Either.Right<string, string>("a");
+
+            (e4 == e5).Should().BeTrue();
         }
     }
 }

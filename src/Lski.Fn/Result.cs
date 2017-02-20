@@ -69,5 +69,54 @@ namespace Lski.Fn
         /// </summary>
         [DebuggerStepThrough]
         public static Result<T> Fail<T>(Error error) => new ResultFailed<T>(error);
+
+        /// <summary>
+        /// Compare the underlying values
+        /// </summary>
+        [DebuggerStepThrough]
+        public static bool operator ==(Result first, Result second) => first.Equals(second);
+
+        /// <summary>
+        /// Compare the underlying values
+        /// </summary>
+        [DebuggerStepThrough]
+        public static bool operator !=(Result first, Result second) => !(first == second);
+
+        /// <summary>
+        /// Returns the "ToString" of the underlying value
+        /// </summary>
+        [DebuggerStepThrough]
+        public override abstract string ToString();
+
+        /// <summary>
+        /// Get the hash code of the underlying value
+        /// </summary>
+        [DebuggerStepThrough]
+        public override abstract int GetHashCode();
+
+        /// <summary>
+        /// Compare the underlying values
+        /// </summary>
+        [DebuggerStepThrough]
+        public override bool Equals(object obj) => obj is Result ? Equals((Result)obj) : false;
+
+        /// <summary>
+        /// Compare the underlying values
+        /// </summary>
+        [DebuggerStepThrough]
+        public bool Equals(Result other)
+        {
+            if (this.IsSuccess == other.IsSuccess)
+            {
+                return true;
+            }
+
+            if (this.IsFailure && this.Error.Equals(other.Error))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

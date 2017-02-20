@@ -6,6 +6,7 @@ namespace Lski.Fn
     {
         private TLeft _value;
 
+        // TODO Consider making this throw an exception on null?
         public EitherLeft(TLeft value)
         {
             _value = value;

@@ -147,5 +147,38 @@ namespace Lski.Fn.Tests
                 result.Value.Should().Be("error boo");
             };
         }
+
+        [Fact]
+        public void CompareTest()
+        {
+            var result = Result.Ok("a");
+            var result2 = Result.Ok("a");
+            var result3 = Result.Ok("b");
+
+            (result == result2).Should().BeTrue();
+            (result == result3).Should().BeFalse();
+
+            var result4 = Result.Fail<string>("a");
+
+            (result == result4).Should().BeFalse();
+        }
+
+        [Fact]
+        public void CastTest()
+        {
+            var result = CastTestHelper();
+
+            result.IsSuccess.Should().BeTrue();
+        }
+
+        public Result<string> CastTestHelper()
+        {
+            return "";
+        }
+
+        public Result<Either<string, int>> CastTestHelper2()
+        {
+            return (Either<string, int>)"";
+        }
     }
 }

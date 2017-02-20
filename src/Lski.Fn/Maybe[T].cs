@@ -74,7 +74,7 @@ namespace Lski.Fn
 
         /// <summary>
         /// Compare the underlying values
-        /// </summary>
+        /// </summary>    
         public override bool Equals(object obj)
         {
             if (obj is T)

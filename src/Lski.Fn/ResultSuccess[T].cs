@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Lski.Fn
 {
@@ -17,5 +18,17 @@ namespace Lski.Fn
 
             _data = data;
         }
+
+        /// <summary>
+        /// Returns the "ToString" of the underlying value
+        /// </summary>
+        [DebuggerStepThrough]
+        public override string ToString() => _data.ToString();
+
+        /// <summary>
+        /// Get the hash code of the underlying value
+        /// </summary>
+        [DebuggerStepThrough]
+        public override int GetHashCode() => _data.GetHashCode();
     }
 }

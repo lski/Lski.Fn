@@ -35,7 +35,7 @@ namespace Lski.Fn
         /// <summary>
         /// Convert the maybe into a result, a value means success, nothing means failure
         /// </summary>
-        public static Result<T> ToResult<T>(this Maybe<T> maybe, string error) => maybe.ToResult(new Error(error));
+        public static Result<T> ToResult<T>(this Maybe<T> maybe, string error) => maybe.ToResult(error);
 
         /// <summary>
         /// Perform the action if Maybe contains a value

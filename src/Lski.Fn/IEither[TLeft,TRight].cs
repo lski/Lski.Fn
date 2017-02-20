@@ -68,9 +68,6 @@ namespace Lski.Fn
         /// <summary>
         /// Runs only if this object is left sided, and returns this either object unchanged.
         /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Right sided either, use in combination with IsLeft/IsRight
-        /// </exception>
         IEither<TLeft, TRight> Left(Action<TLeft> action);
     }
 }

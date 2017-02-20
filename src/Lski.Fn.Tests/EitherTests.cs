@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit;
 using System.Threading.Tasks;
+using System;
 
 namespace Lski.Fn.Tests
 {
@@ -9,7 +10,6 @@ namespace Lski.Fn.Tests
         [Fact]
         public void SetLeftValueTest()
         {
-
             var left = Either.Left<string, int>("a value");
 
             var result = left.Do((val) => val + " plus", (v) => v.ToString());
@@ -17,8 +17,8 @@ namespace Lski.Fn.Tests
             result.Should().Be("a value plus");
         }
 
-        public async Task AsyncTest() {
-
+        public async Task AsyncTest()
+        {
             var either = Either.Left<string, string>("left");
 
             var val = await either.Do(async (vall) => await Blah("left"), async (valr) => await Blah("right"));
@@ -26,14 +26,14 @@ namespace Lski.Fn.Tests
             val.Should().Be("left");
         }
 
-        public async Task<string> Blah(string blah) {
+        public async Task<string> Blah(string blah)
+        {
             return await Task.FromResult("");
         }
 
         [Fact]
         public void SetRightValueTest()
         {
-
             var right = Either.Right<string, int>(1);
 
             var result = right.Do((val) => val + " plus", (v) => v.ToString());
@@ -64,7 +64,6 @@ namespace Lski.Fn.Tests
         [Fact]
         public void ActionFiredTest()
         {
-
             var left = Either.Left<string, string>("left");
 
             string result = null;
@@ -110,6 +109,22 @@ namespace Lski.Fn.Tests
             var resultTwo = eitherTwo.Left(val => 100);
 
             resultTwo.Should().Be(0);
+        }
+
+        [Fact]
+        public void CastTests() {
+
+            Either<string, int> either = 1;
+
+            either.Right().Should().Be(1);
+
+            Either<string, int> either2 = "either2";
+
+            either2.Left().Should().Be("either2");
+
+            Action a = () => { either.Left(); };
+
+            a.ShouldThrow<InvalidOperationException>();
         }
     }
 }

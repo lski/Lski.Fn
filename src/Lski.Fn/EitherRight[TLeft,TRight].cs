@@ -2,7 +2,7 @@
 
 namespace Lski.Fn
 {
-    internal struct EitherRight<TLeft, TRight> : IEither<TLeft, TRight>
+    internal class EitherRight<TLeft, TRight> : Either<TLeft, TRight>
     {
         private TRight _value;
 
@@ -11,11 +11,11 @@ namespace Lski.Fn
             _value = value;
         }
 
-        public bool IsLeft => false;
+        public override bool IsLeft => false;
 
-        public bool IsRight => true;
+        public override bool IsRight => true;
 
-        public IEither<TLeft, TRight> Do(Action<TLeft> leftAct, Action<TRight> rightAct)
+        public override Either<TLeft, TRight> Do(Action<TLeft> leftAct, Action<TRight> rightAct)
         {
             if (rightAct == null)
             {
@@ -26,13 +26,13 @@ namespace Lski.Fn
             return this;
         }
 
-        public T Do<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc) => rightFunc != null ? rightFunc(_value) : throw new ArgumentNullException(nameof(rightFunc));
+        public override T Do<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc) => rightFunc != null ? rightFunc(_value) : throw new ArgumentNullException(nameof(rightFunc));
 
-        public TRight Right() => _value;
+        public override TRight Right() => _value;
 
-        public T Right<T>(Func<TRight, T> func) => func != null ? func(_value) : throw new ArgumentNullException(nameof(func));
+        public override T Right<T>(Func<TRight, T> func) => func != null ? func(_value) : throw new ArgumentNullException(nameof(func));
 
-        public IEither<TLeft, TRight> Right(Action<TRight> action)
+        public override Either<TLeft, TRight> Right(Action<TRight> action)
         {
             if (action == null)
             {
@@ -42,10 +42,10 @@ namespace Lski.Fn
             return this;
         }
 
-        public TLeft Left() => throw new InvalidOperationException("A right-side either does not contain a left value");
+        public override TLeft Left() => throw new InvalidOperationException("A right-side either does not contain a left value");
 
-        public T Left<T>(Func<TLeft, T> func) => default(T);
+        public override T Left<T>(Func<TLeft, T> func) => default(T);
 
-        public IEither<TLeft, TRight> Left(Action<TLeft> action) => this;   
+        public override Either<TLeft, TRight> Left(Action<TLeft> action) => this;   
     }
 }

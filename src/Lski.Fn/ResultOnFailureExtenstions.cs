@@ -97,6 +97,28 @@ namespace Lski.Fn
         }
 
         /// <summary>
+        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// </summary>
+        [DebuggerStepThrough]
+        public static async Task<Result> OnFailure(this Task<Result> task, Func<Error, Error> func)
+        {
+            var result = await task.ConfigureAwait(false);
+            var err = func(result.Error);
+            return Result.Fail(err);
+        }
+
+        /// <summary>
+        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// </summary>
+        [DebuggerStepThrough]
+        public static async Task<Result> OnFailure(this Task<Result> task, Func<Error, string> func)
+        {
+            var result = await task.ConfigureAwait(false);
+            var err = func(result.Error);
+            return Result.Fail(err);
+        }
+
+        /// <summary>
         /// If a result is unsuccessful (a failure) the function is run and the original result is returned.
         /// </summary>
         [DebuggerStepThrough]

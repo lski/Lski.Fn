@@ -43,6 +43,11 @@ namespace Lski.Fn
         public static Maybe<T> None() => new Maybe<T>();
 
         /// <summary>
+        /// implicitly converts a value to a Maybe of the same type
+        /// </summary>
+        public static implicit operator Maybe<T>(T value) => Maybe.Create(value);
+
+        /// <summary>
         /// Compare the underlying values
         /// </summary>
         public static bool operator ==(Maybe<T> maybe, T value) => maybe.HasValue && maybe.Value.Equals(value);

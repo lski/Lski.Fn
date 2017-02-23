@@ -44,13 +44,13 @@ namespace Lski.Fn
         /// Turn an error message to a failed result
         /// </summary>
         [DebuggerStepThrough]
-        public static Result ToFail(Error message) => Result.Fail(message);
+        public static Result ToFail(this Error message) => Result.Fail(message);
 
         /// <summary>
         /// Turn an error message to a failed result
         /// </summary>
         [DebuggerStepThrough]
-        public static Result<T> ToFail<T>(Error message) => Result.Fail<T>(message);
+        public static Result<T> ToFail<T>(this Error message) => Result.Fail<T>(message);
 
         /// <summary>
         /// Turn an error message to a failed result
@@ -67,6 +67,38 @@ namespace Lski.Fn
         /// </summary>
         [DebuggerStepThrough]
         public async static Task<Result<T>> ToFail<T>(this Task<Error> task)
+        {
+            var error = await task.ConfigureAwait(false);
+            return Result.Fail<T>(error);
+        }
+
+        /// <summary>
+        /// Turn an error message to a failed result
+        /// </summary>
+        [DebuggerStepThrough]
+        public static Result ToFail(this string message) => Result.Fail(message);
+
+        /// <summary>
+        /// Turn an error message to a failed result
+        /// </summary>
+        [DebuggerStepThrough]
+        public static Result<T> ToFail<T>(this string message) => Result.Fail<T>(message);
+
+        /// <summary>
+        /// Turn an error message to a failed result
+        /// </summary>
+        [DebuggerStepThrough]
+        public async static Task<Result> ToFail(this Task<string> task)
+        {
+            var error = await task.ConfigureAwait(false);
+            return Result.Fail(error);
+        }
+
+        /// <summary>
+        /// Turn an error message to a failed result
+        /// </summary>
+        [DebuggerStepThrough]
+        public async static Task<Result<T>> ToFail<T>(this Task<string> task)
         {
             var error = await task.ConfigureAwait(false);
             return Result.Fail<T>(error);

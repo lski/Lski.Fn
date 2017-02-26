@@ -167,3 +167,4 @@ nuget/nuget.*
 nuget/*.nupkg
 
 .vscode/**
+!.vscode/tasks.json

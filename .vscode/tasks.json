@@ -1,0 +1,51 @@
+{
+    "version": "0.1.0",
+    "tasks": [
+         {
+            "command": "dotnet",
+            "isShellCommand": true,
+            "taskName": "build",
+            "args": [
+                "build",
+                "${workspaceRoot}\\src\\Lski.Fn\\Lski.Fn.csproj",
+                "-c",
+                "Release"
+            ],
+            "isBuildCommand": true,
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "command": "dotnet",
+            "isShellCommand": true,
+            "taskName": "test",
+            "args": [
+                "test",
+                "${workspaceRoot}\\src\\Lski.Fn.Tests\\Lski.Fn.Tests.csproj"
+            ],
+            "isTestCommand": true,
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "command": "nuget",
+            "isShellCommand": true,
+            "taskName": "nuget pack",
+            "args": [
+                "pack",
+                "${workspaceRoot}\\nuget\\lski.fn.nuspec",
+                "-outputdirectory",
+                ".\\nuget"
+            ]
+        },
+        {
+            "command": "nuget",
+            "isShellCommand":true,
+            "taskName": "nuget push",
+            "args": [
+                "push",
+                "${relativeFile}",
+                "-source",
+                "https://www.nuget.org/api/v2/package"
+            ]
+        }
+    ]
+}

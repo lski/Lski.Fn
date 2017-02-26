@@ -1,6 +1,7 @@
 using FluentAssertions;
 using System;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace Lski.Fn.Tests
 {
@@ -36,11 +37,29 @@ namespace Lski.Fn.Tests
             nullValue.HasNoValue.Should().BeTrue();
             nullValue2.HasNoValue.Should().BeTrue();
 
-            Action action = () => {
+            Action action = () =>
+            {
                 nullValue.Value.Should().NotBeNull();
             };
 
             action.ShouldThrow<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task AsyncTests()
+        {
+            var maybe1 = await AsyncTestsHelper("a value").Bind(val => "changed".ToMaybe());
+
+            maybe1.Value.Should().Be("changed");
+
+            var maybe2 = await "start".ToMaybe().Bind(AsyncTestsHelper);
+
+            maybe2.Value.Should().Be("start");
+        }
+
+        public async Task<Maybe<string>> AsyncTestsHelper(string val)
+        {
+            return await Task.FromResult(val.ToMaybe());
         }
     }
 }

@@ -38,7 +38,11 @@ namespace Lski.Fn
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<T> Do<T, TLeft, TRight>(this Either<TLeft, TRight> either, Func<TLeft, Task<T>> leftFunc, Func<TRight, Task<T>> rightFunc)
-            => either.IsLeft ? await either.Left(leftFunc).ConfigureAwait(false) : await either.Right(rightFunc).ConfigureAwait(false);
+        {
+            return either.IsLeft ?
+                await either.Left(leftFunc).ConfigureAwait(false)
+                : await either.Right(rightFunc).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Runs only if this object is right sided, otherwise returns default(T)
@@ -47,7 +51,10 @@ namespace Lski.Fn
         /// Thrown if this is a Left sided either, use in combination with IsLeft/IsRight
         /// </exception>
         [DebuggerStepThrough]
-        public static async Task<T> Right<T, TLeft, TRight>(this Either<TLeft, TRight> either, Func<TRight, Task<T>> func) => await func(either.Right()).ConfigureAwait(false);
+        public static async Task<T> Right<T, TLeft, TRight>(this Either<TLeft, TRight> either, Func<TRight, Task<T>> func)
+        {
+            return await func(either.Right()).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Runs only if this object is left sided, otherwise returns default(T)
@@ -56,7 +63,10 @@ namespace Lski.Fn
         /// Thrown if this is a Right sided either, use in combination with IsLeft/IsRight
         /// </exception>
         [DebuggerStepThrough]
-        public static async Task<T> Left<T, TLeft, TRight>(this Either<TLeft, TRight> either, Func<TLeft, Task<T>> func) => await func(either.Left()).ConfigureAwait(false);
+        public static async Task<T> Left<T, TLeft, TRight>(this Either<TLeft, TRight> either, Func<TLeft, Task<T>> func)
+        {
+            return await func(either.Left()).ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Runs only the appropriate function and returns the value from than function.

@@ -35,7 +35,13 @@ namespace Lski.Fn
         /// <exception cref="InvalidOperationException">
         /// If the Maybe represents "nothing" (value == None)
         /// </exception>
-        public T Value => HasValue ? _value : throw new InvalidOperationException("Maybe has no value");
+        public T Value
+        {
+            get
+            {
+                return HasValue ? _value : throw new InvalidOperationException("Maybe has no value");
+            }
+        }
 
         /// <summary>
         /// Creates an empty Maybe of the specified type that represents "nothing"
@@ -70,12 +76,18 @@ namespace Lski.Fn
         /// <summary>
         /// Returns the "ToString" of the underlying value
         /// </summary>
-        public override string ToString() => HasNoValue ? "None" : _value.ToString();
+        public override string ToString()
+        {
+            return HasNoValue ? "None" : _value.ToString();
+        }
 
         /// <summary>
         /// Get the hash code of the underlying value
         /// </summary>
-        public override int GetHashCode() => HasNoValue ? 0 : _value.GetHashCode();
+        public override int GetHashCode()
+        {
+            return HasNoValue ? 0 : _value.GetHashCode();
+        }
 
         /// <summary>
         /// Compare the underlying values

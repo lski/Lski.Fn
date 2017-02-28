@@ -82,12 +82,20 @@ namespace Lski.Fn
         /// <summary>
         /// Returns the "ToString" of the underlying value
         /// </summary>
-        public override string ToString() => this.IsLeft ? $"{this.Left()}" : $"{this.Right()}";
+        public override string ToString()
+        {
+            return this.IsLeft ? $"{this.Left()}" : $"{this.Right()}";
+        }
 
         /// <summary>
         /// Get the hash code of the underlying value
         /// </summary>
-        public override int GetHashCode() => this.IsLeft ? this.Left().GetHashCode() : this.Right().GetHashCode();
+        public override int GetHashCode()
+        {
+            return this.IsLeft
+                ? this.Left().GetHashCode()
+                : this.Right().GetHashCode();
+        }
 
         /// <summary>
         /// Compare the underlying values
@@ -140,7 +148,7 @@ namespace Lski.Fn
             {
                 var otherLeft = other.Left();
                 return (l != null && l.Equals(otherLeft)) || (l == null && otherLeft == null);
-            }, 
+            },
             r =>
             {
                 var otherRight = other.Right();

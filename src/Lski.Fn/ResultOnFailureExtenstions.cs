@@ -10,7 +10,10 @@ namespace Lski.Fn
         /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
-        public static Result OnFailure(this Result result, Func<Error, Result> func) => result.IsFailure ? func(result.Error) : result;
+        public static Result OnFailure(this Result result, Func<Error, Result> func)
+        {
+            return result.IsFailure ? func(result.Error) : result;
+        }
 
         /// <summary>
         /// If a result is unsuccessful (a failure) the action is run and the original result is returned.
@@ -44,19 +47,28 @@ namespace Lski.Fn
         /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
-        public static Result<T> OnFailure<T>(this Result<T> result, Func<Error, Result<T>> func) => result.IsFailure ? func(result.Error) : result;
+        public static Result<T> OnFailure<T>(this Result<T> result, Func<Error, Result<T>> func)
+        {
+            return result.IsFailure ? func(result.Error) : result;
+        }
 
         /// <summary>
         /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
-        public static Result<T> OnFailure<T>(this Result<T> result, Func<Error, Error> func) => result.IsFailure ? Result.Fail<T>(func(result.Error)) : result;
+        public static Result<T> OnFailure<T>(this Result<T> result, Func<Error, Error> func)
+        {
+            return result.IsFailure ? Result.Fail<T>(func(result.Error)) : result;
+        }
 
         /// <summary>
         /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
-        public static Result<T> OnFailure<T>(this Result<T> result, Func<Error, string> func) => result.IsFailure ? Result.Fail<T>(func(result.Error)) : result;
+        public static Result<T> OnFailure<T>(this Result<T> result, Func<Error, string> func)
+        {
+            return result.IsFailure ? Result.Fail<T>(func(result.Error)) : result;
+        }
 
         /// <summary>
         /// If a result is unsuccessful (a failure) the function is run and the original result is returned.
@@ -187,7 +199,7 @@ namespace Lski.Fn
             var result = await task.ConfigureAwait(false);
             return result.OnFailure(action);
         }
-        
+
         /// <summary>
         /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>

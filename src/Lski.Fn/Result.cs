@@ -29,7 +29,13 @@ namespace Lski.Fn
         /// <exception cref="InvalidOperationException">
         /// If a result is successful then accessing the Error property throw an exception
         /// </exception>
-        public virtual Error Error => throw new InvalidOperationException("A successful result should not have an error");
+        public virtual Error Error
+        {
+            get
+            {
+                throw new InvalidOperationException("A successful result should not have an error");
+            }
+        }
 
         /// <summary>
         /// Creates a successful result
@@ -98,7 +104,10 @@ namespace Lski.Fn
         /// Compare the underlying values
         /// </summary>
         [DebuggerStepThrough]
-        public override bool Equals(object obj) => obj is Result ? Equals((Result)obj) : false;
+        public override bool Equals(object obj)
+        {
+            return obj is Result ? Equals((Result)obj) : false;
+        }
 
         /// <summary>
         /// Compare the underlying values

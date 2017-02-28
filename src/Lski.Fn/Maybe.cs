@@ -16,7 +16,10 @@ namespace Lski.Fn
         /// <summary>
         /// Create a new Maybe object of the type passed
         /// </summary>
-        public static Maybe<T> Create<T>(T value) => value == null ? Maybe<T>.None() : new Maybe<T>(value);
+        public static Maybe<T> Create<T>(T value)
+        {
+            return value == null ? Maybe<T>.None() : new Maybe<T>(value);
+        }
 
         /// <summary>
         /// Convert a value to a Maybe object of the same type
@@ -26,12 +29,18 @@ namespace Lski.Fn
         /// <summary>
         /// Returns either the stored value or the default if contains nothing
         /// </summary>
-        public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = default(T)) => maybe.HasValue ? maybe.Value : defaultValue;
+        public static T Unwrap<T>(this Maybe<T> maybe, T defaultValue = default(T))
+        {
+            return maybe.HasValue ? maybe.Value : defaultValue;
+        }
 
         /// <summary>
         /// Convert the maybe into a result, a value means success, nothing means failure
         /// </summary>
-        public static Result<T> ToResult<T>(this Maybe<T> maybe, Error error) => maybe.HasValue ? maybe.Value.ToResult() : Result.Fail<T>(error);
+        public static Result<T> ToResult<T>(this Maybe<T> maybe, Error error)
+        {
+            return maybe.HasValue ? maybe.Value.ToResult() : Result.Fail<T>(error);
+        }
 
         /// <summary>
         /// Convert the maybe into a result, a value means success, nothing means failure
@@ -64,7 +73,10 @@ namespace Lski.Fn
         /// <summary>
         /// If contains a value performs the function and returns a new Maybe, otherwise returns a new Maybe.None
         /// </summary>
-        public static Maybe<TOut> Bind<T, TOut>(this Maybe<T> maybe, Func<T, Maybe<TOut>> func) => maybe.HasValue ? func(maybe.Value) : Maybe<TOut>.None();
+        public static Maybe<TOut> Bind<T, TOut>(this Maybe<T> maybe, Func<T, Maybe<TOut>> func)
+        {
+            return maybe.HasValue ? func(maybe.Value) : Maybe<TOut>.None();
+        }
 
         /// <summary>
         /// Returns either the stored value or the default if contains nothing

@@ -9,6 +9,11 @@ namespace Lski.Fn
         // TODO Consider making this throw an exception on null?
         public EitherLeft(TLeft value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("An either object should contain a value. Consider using a Maybe<T> if the value is optional");
+            }
+
             _value = value;
         }
 

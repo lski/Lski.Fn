@@ -8,6 +8,11 @@ namespace Lski.Fn
 
         public EitherRight(TRight value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("An either object should contain a value. Consider using a Maybe<T> if the value is optional");
+            }
+
             _value = value;
         }
 

@@ -39,7 +39,7 @@ namespace Lski.Fn
         /// </summary>
         public static Result<T> ToResult<T>(this Maybe<T> maybe, Error error)
         {
-            return maybe.HasValue ? maybe.Value.ToResult() : Result.Fail<T>(error);
+            return maybe.HasValue ? maybe.Value.ToSuccess() : Result.Fail<T>(error);
         }
 
         /// <summary>

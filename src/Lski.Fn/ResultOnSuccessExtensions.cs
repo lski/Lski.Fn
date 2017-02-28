@@ -210,7 +210,7 @@ namespace Lski.Fn
 
             var value = await func(result.Value).ConfigureAwait(false);
 
-            return value.ToResult();
+            return value.ToSuccess();
         }
 
         /// <summary>
@@ -268,7 +268,7 @@ namespace Lski.Fn
                 return Result.Fail<T2>(result.Error);
             }
 
-            return await func(result.Value).ToResult();
+            return await func(result.Value).ToSuccess();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Lski.Fn.Tests
 
             result.Value.Should().Be("success");
 
-            result = "success2".ToResult();
+            result = "success2".ToSuccess();
 
             result.Value.Should().Be("success2");
 
@@ -48,12 +48,12 @@ namespace Lski.Fn.Tests
 
             run.Should().BeTrue();
 
-            var result2 = result.OnSuccess((val) => true.ToResult());
+            var result2 = result.OnSuccess((val) => true.ToSuccess());
 
             result2.IsSuccess.Should().BeTrue();
             result2.Value.Should().BeTrue();
 
-            result = result.OnSuccess((val) => "second success".ToResult());
+            result = result.OnSuccess((val) => "second success".ToSuccess());
 
             result.IsSuccess.Should().BeTrue();
             result.Value.Should().Be("second success");
@@ -101,7 +101,7 @@ namespace Lski.Fn.Tests
         [Fact]
         public void OnSuccessChain()
         {
-            var result = "success".ToResult()
+            var result = "success".ToSuccess()
                 .OnSuccess((val) => val + 1)
                 .OnSuccess(val => val + 2)
                 .OnSuccess(val => val + 3);
@@ -118,7 +118,7 @@ namespace Lski.Fn.Tests
 
             Action a = async () =>
             {
-                var taskResult = await Task.FromResult("task".ToResult())
+                var taskResult = await Task.FromResult("task".ToSuccess())
                 .OnSuccess(val => val + " ")
                 .OnSuccess(val => val + "is great");
 

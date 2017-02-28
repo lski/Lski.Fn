@@ -28,28 +28,7 @@ namespace Lski.Fn
         public abstract Either<TLeft, TRight> Do(Action<TLeft> leftAct, Action<TRight> rightAct);
 
         /// <summary>
-        /// Returns the value for right, if this is left sided it throws an exception
-        /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Left sided either, use in combination with IsLeft/IsRight
-        /// </exception>
-        public abstract TRight Right();
-
-        /// <summary>
-        /// Runs only if this object is right sided, otherwise throws an exception
-        /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Left sided either, use in combination with IsLeft/IsRight
-        /// </exception>
-        public abstract T Right<T>(Func<TRight, T> func);
-
-        /// <summary>
-        /// Runs only the appropriate function and returns this either object unchanged.
-        /// </summary>
-        public abstract Either<TLeft, TRight> Right(Action<TRight> action);
-
-        /// <summary>
-        /// Returns the value for left, if this is right sided it throws an exception
+        /// Returns the value if this is a left sided either, otherwise it throws an exception as a return value is expected. Use in combination with IsLeft/IsRight
         /// </summary>
         /// <exception cref="InvalidOperationException">
         /// Thrown if this is a Right sided either, use in combination with IsLeft/IsRight
@@ -57,17 +36,38 @@ namespace Lski.Fn
         public abstract TLeft Left();
 
         /// <summary>
-        /// Runs only if this object is left sided, otherwise throws an exception
+        /// Runs only if this object is left sided, otherwise throws an exception as a return value is expected, use in combination with IsLeft/IsRight
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Right sided either, use in combination with IsLeft/IsRight
+        /// Thrown if this is a Left sided either, use in combination with IsLeft/IsRight
         /// </exception>
         public abstract T Left<T>(Func<TLeft, T> func);
 
         /// <summary>
-        /// Runs only if this object is left sided, and returns this either object unchanged.
+        /// Runs only if this object is left sided, and returns this either object unchanged for chaining. Does NOT throw exception if a right-sided either.
         /// </summary>
         public abstract Either<TLeft, TRight> Left(Action<TLeft> action);
+
+        /// <summary>
+        /// Returns the value if this is a right sided either, otherwise it throws an exception as a return value is expected. Use in combination with IsLeft/IsRight
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if this is a Left sided either, use in combination with IsLeft/IsRight
+        /// </exception>
+        public abstract TRight Right();
+
+        /// <summary>
+        /// Runs only if this object is right sided, otherwise throws an exception as a return value is expected. Use in combination with IsLeft/IsRight
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if this is a Left sided either, use in combination with IsLeft/IsRight
+        /// </exception>
+        public abstract T Right<T>(Func<TRight, T> func);
+
+        /// <summary>
+        /// Runs only the appropriate function and returns this either object unchanged for chaining. Does NOT throw exception if a left-sided either.
+        /// </summary>
+        public abstract Either<TLeft, TRight> Right(Action<TRight> action);
 
         /// <summary>
         /// Converts a value of the left side type to a left-sided either
@@ -82,10 +82,7 @@ namespace Lski.Fn
         /// <summary>
         /// Returns the "ToString" of the underlying value
         /// </summary>
-        public override string ToString()
-        {
-            return this.IsLeft ? $"{this.Left()}" : $"{this.Right()}";
-        }
+        public abstract override string ToString(); 
 
         /// <summary>
         /// Get the hash code of the underlying value

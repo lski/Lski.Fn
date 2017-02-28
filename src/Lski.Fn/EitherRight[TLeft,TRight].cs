@@ -58,8 +58,13 @@ namespace Lski.Fn
             throw new InvalidOperationException("A right-side either does not contain a left value");
         }
 
-        public override T Left<T>(Func<TLeft, T> func) => default(T);
+        public override T Left<T>(Func<TLeft, T> func)
+        {
+            throw new InvalidOperationException("A right-side either does not contain a left value");
+        }
 
         public override Either<TLeft, TRight> Left(Action<TLeft> action) => this;
+
+        public override string ToString() => $"{this._value}";
     }
 }

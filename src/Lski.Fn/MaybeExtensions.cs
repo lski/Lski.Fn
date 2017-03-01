@@ -29,16 +29,6 @@ namespace Lski.Fn
         public static Result<T> ToResult<T>(this Maybe<T> maybe, string error) => maybe.ToResult(error);
 
         /// <summary>
-        /// Alias for Bind
-        /// </summary>
-        public static Maybe<T> Do<T>(this Maybe<T> maybe, Action<T> action) => maybe.Bind(action);
-
-        /// <summary>
-        /// Alias for Bind
-        /// </summary>
-        public static Maybe<TOut> Do<T, TOut>(this Maybe<T> maybe, Func<T, Maybe<TOut>> func) => maybe.Bind(func);
-
-        /// <summary>
         /// Performs the action if Maybe contains a value and returns the same Maybe for chaining.
         /// </summary>
         public static Maybe<T> Bind<T>(this Maybe<T> maybe, Action<T> action)

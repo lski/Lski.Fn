@@ -36,16 +36,6 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// Alias for Bind
-        /// </summary>
-        public static async Task<Maybe<T>> Do<T>(this Task<Maybe<T>> maybe, Action<T> action) => await maybe.Bind(action);
-
-        /// <summary>
-        /// Alias for Bind
-        /// </summary>
-        public static async Task<Maybe<TOut>> Do<T, TOut>(this Task<Maybe<T>> maybe, Func<T, Maybe<TOut>> func) => await maybe.Bind(func);
-
-        /// <summary>
         /// Performs the action if Maybe contains a value and returns the same Maybe for chaining.
         /// </summary>
         public static async Task<Maybe<T>> Bind<T>(this Task<Maybe<T>> task, Action<T> action)
@@ -69,11 +59,6 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// Alias for Bind
-        /// </summary>
-        public static async Task<Maybe<TOut>> Do<T, TOut>(this Maybe<T> maybe, Func<T, Task<Maybe<TOut>>> func) => await maybe.Bind(func);
-
-        /// <summary>
         /// If contains a value performs the function and returns a new Maybe, otherwise returns a new Maybe.None
         /// </summary>
         public static async Task<Maybe<TOut>> Bind<T, TOut>(this Maybe<T> maybe, Func<T, Task<Maybe<TOut>>> func)
@@ -85,12 +70,7 @@ namespace Lski.Fn
 
             return Maybe.None<TOut>();
         }
-
-        /// <summary>
-        /// Alias for Bind
-        /// </summary>
-        public static async Task<Maybe<TOut>> Do<T, TOut>(this Task<Maybe<T>> maybe, Func<T, Task<Maybe<TOut>>> func) => await maybe.Bind(func);
-
+        
         /// <summary>
         /// If contains a value performs the function and returns a new Maybe, otherwise returns a new Maybe.None
         /// </summary>

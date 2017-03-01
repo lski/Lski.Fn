@@ -3,8 +3,7 @@
 namespace Lski.Fn
 {
     /// <summary>
-    /// A Maybe object is a wrapper around a potentially null value. So either has a value or
-    /// contains "nothing" of its particular type
+    /// A Maybe object is a wrapper around a potentially null value. So either has a value or contains "nothing" of its particular type
     /// </summary>
     public class Maybe<T>
     {
@@ -16,7 +15,7 @@ namespace Lski.Fn
 
         internal Maybe(T value)
         {
-            _value = value != null ? value : throw new ArgumentNullException(nameof(value), "The value for Maybe can not be null");
+            _value = value != null ? value : throw new ArgumentNullException(nameof(value), "The value for Maybe can not be null, use Maybe.None<T>() instead");
         }
 
         /// <summary>
@@ -42,11 +41,6 @@ namespace Lski.Fn
                 return HasValue ? _value : throw new InvalidOperationException("Maybe has no value");
             }
         }
-
-        /// <summary>
-        /// Creates an empty Maybe of the specified type that represents "nothing"
-        /// </summary>
-        public static Maybe<T> None() => new Maybe<T>();
 
         /// <summary>
         /// implicitly converts a value to a Maybe of the same type

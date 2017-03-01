@@ -9,7 +9,7 @@ namespace Lski.Fn
     public static class Maybe
     {
         /// <summary>
-        /// Creates an empty Maybe of the specified type that represents "nothing"
+        /// Creates an empty Maybe of the specified type that represents "nothing". Equivalent to Maybe.Create&lt;T&gt;(null).
         /// </summary>
         public static Maybe<T> None<T>() => new Maybe<T>();
 
@@ -18,7 +18,7 @@ namespace Lski.Fn
         /// </summary>
         public static Maybe<T> Create<T>(T value)
         {
-            return value == null ? Maybe<T>.None() : new Maybe<T>(value);
+            return value == null ? Maybe.None<T>() : new Maybe<T>(value);
         }
 
         /// <summary>
@@ -71,11 +71,11 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If contains a value performs the function and returns a new Maybe, otherwise returns a new Maybe.None
+        /// If contains a value performs the function and returns a new Maybe, otherwise returns a new Maybe.None&lt;TOut&gt;
         /// </summary>
         public static Maybe<TOut> Bind<T, TOut>(this Maybe<T> maybe, Func<T, Maybe<TOut>> func)
         {
-            return maybe.HasValue ? func(maybe.Value) : Maybe<TOut>.None();
+            return maybe.HasValue ? func(maybe.Value) : Maybe.None<TOut>();
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Lski.Fn
         public static async Task<Maybe<TOut>> Bind<T, TOut>(this Task<Maybe<T>> task, Func<T, Maybe<TOut>> func)
         {
             var maybe = await task.ConfigureAwait(false);
-            return maybe.HasValue ? func(maybe.Value) : Maybe<TOut>.None();
+            return maybe.HasValue ? func(maybe.Value) : Maybe.None<TOut>();
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Lski.Fn
                 return await func(maybe.Value);
             }
 
-            return Maybe<TOut>.None();
+            return Maybe.None<TOut>();
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace Lski.Fn
                 return await func(maybe.Value);
             }
 
-            return Maybe<TOut>.None();
+            return Maybe.None<TOut>();
         }
     }
 }

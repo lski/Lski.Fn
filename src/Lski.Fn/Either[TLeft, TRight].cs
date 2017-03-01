@@ -3,8 +3,15 @@
 namespace Lski.Fn
 {
     /// <summary>
-    /// Contains funcitons for creating left or right sided Either objects
+    /// A base class for Either
     /// </summary>
+    /// <remarks>
+    /// An Either is an Immutable object that represents a choice of two possible options. Either we are working with a value on the "left" or a value on the "right".
+    ///
+    /// An either can not be both left and right and must have a value. This gives a type safety to anything excepting the either object of the types it needs to deal with.
+    /// It has the benefit of giving an users of an API that a complete over-view of the potential values coming back, meaning no understanding of the function is needed to deal
+    /// with casting to particular types on certain responses etc.
+    /// </remarks>
     public abstract class Either<TLeft, TRight>
     {
         /// <summary>
@@ -28,54 +35,54 @@ namespace Lski.Fn
         public abstract Either<TLeft, TRight> Do(Action<TLeft> leftAct, Action<TRight> rightAct);
 
         /// <summary>
-        /// Returns the value if this is a left sided either, otherwise it throws an exception as a return value is expected. Use in combination with IsLeft/IsRight
+        /// Returns the value if this is a left sided either, otherwise it throws an exception as a return value is expected, use in combination with IsLeft/IsRight
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Right sided either, use in combination with IsLeft/IsRight
+        /// Thrown if this is a Right sided either
         /// </exception>
         public abstract TLeft Left();
 
         /// <summary>
-        /// Runs only if this object is left sided, otherwise throws an exception as a return value is expected, use in combination with IsLeft/IsRight
+        /// Runs only if this either is left sided, otherwise throws an exception as a return value is expected, use in combination with IsLeft/IsRight
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Left sided either, use in combination with IsLeft/IsRight
+        /// Thrown if this is a right sided either
         /// </exception>
         public abstract T Left<T>(Func<TLeft, T> func);
 
         /// <summary>
-        /// Runs only if this object is left sided, and returns this either object unchanged for chaining. Does NOT throw exception if a right-sided either.
+        /// Runs only if either is left sided, and returns the either unchanged for chaining. Does NOT throw exception if a right-sided either.
         /// </summary>
         public abstract Either<TLeft, TRight> Left(Action<TLeft> action);
 
         /// <summary>
-        /// Returns the value if this is a right sided either, otherwise it throws an exception as a return value is expected. Use in combination with IsLeft/IsRight
+        /// Returns the value if this is a right sided either, otherwise it throws an exception as a return value is expected, use in combination with IsLeft/IsRight
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Left sided either, use in combination with IsLeft/IsRight
+        /// Thrown if this is a Left sided either
         /// </exception>
         public abstract TRight Right();
 
         /// <summary>
-        /// Runs only if this object is right sided, otherwise throws an exception as a return value is expected. Use in combination with IsLeft/IsRight
+        /// Runs only if this either is right sided, otherwise throws an exception as a return value is expected, use in combination with IsLeft/IsRight
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Left sided either, use in combination with IsLeft/IsRight
+        /// Thrown if this is a Left sided either
         /// </exception>
         public abstract T Right<T>(Func<TRight, T> func);
 
         /// <summary>
-        /// Runs only the appropriate function and returns this either object unchanged for chaining. Does NOT throw exception if a left-sided either.
+        /// Runs only if either is right sided, and returns the either unchanged for chaining. Does NOT throw exception if a right-sided either.
         /// </summary>
         public abstract Either<TLeft, TRight> Right(Action<TRight> action);
 
         /// <summary>
-        /// Converts a value of the left side type to a left-sided either
+        /// Implicitly converts a value of the left side type to a left-sided either
         /// </summary>
         public static implicit operator Either<TLeft, TRight>(TLeft left) => Either.Left<TLeft, TRight>(left);
 
         /// <summary>
-        /// Converts a value of the left side type to a left-sided either
+        /// Implicitly converts a value of the left side type to a left-sided either
         /// </summary>
         public static implicit operator Either<TLeft, TRight>(TRight right) => Either.Right<TLeft, TRight>(right);
 
@@ -153,6 +160,4 @@ namespace Lski.Fn
             });
         }
     }
-
-
 }

@@ -28,12 +28,12 @@ namespace Lski.Fn
         public override string ToString() => _message;
 
         ///<summary>
-        /// Converts an failure object to a string object
+        /// Implicitly converts an failure object to a string object
         ///</summary>
         public static implicit operator string(Error err) => err._message;
         
         ///<summary>
-        /// Converts an failure object to a string object
+        /// Implicitly converts a string object to an Error object
         ///</summary>
         public static implicit operator Error(string err) => new Error(err);
     }

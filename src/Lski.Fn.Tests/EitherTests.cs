@@ -90,9 +90,14 @@ namespace Lski.Fn.Tests
 
             var eitherTwo = Either.Left<string, string>("left");
 
-            var resultTwo = eitherTwo.Right(val => 100);
+            Action a = () => {
 
-            resultTwo.Should().Be(0);
+                var resultTwo = eitherTwo.Right(val => 100);
+
+                resultTwo.Should().Be(0);
+            };
+
+            a.ShouldThrow<InvalidOperationException>();
         }
 
         [Fact]
@@ -106,9 +111,14 @@ namespace Lski.Fn.Tests
 
             var eitherTwo = Either.Right<string, string>("right");
 
-            var resultTwo = eitherTwo.Left(val => 100);
+            Action a = () => {
 
-            resultTwo.Should().Be(0);
+                var resultTwo = eitherTwo.Left(val => 100);
+
+                resultTwo.Should().Be(0);
+            };
+
+            a.ShouldThrow<InvalidOperationException>();
         }
 
         [Fact]

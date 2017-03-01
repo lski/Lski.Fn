@@ -5,6 +5,7 @@ namespace Lski.Fn
 {
     /// <summary>
     /// Extends a result so it can contain a value or an error, but be of the necessary type.
+    /// So if successful it will have a Value, otherwise contains an error.
     /// </summary>
     public abstract class Result<T> : Result
     {

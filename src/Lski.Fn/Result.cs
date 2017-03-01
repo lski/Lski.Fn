@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace Lski.Fn
 {
     /// <summary>
-    /// A Result represents an Immutable successful or unsuccessful result of an "action" without the need for exceptions. If successful it can have a Value, otherwise contains an error.
+    /// A Result is an Immutable successful or unsuccessful result of an "action" without the need for exceptions.
     /// </summary>
     public abstract class Result
     {

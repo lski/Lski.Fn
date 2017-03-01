@@ -7,7 +7,7 @@ namespace Lski.Fn
     public static partial class ResultExtensionsAsync
     {
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result> OnFailure(this Task<Result> task, Func<Error, Result> func)
@@ -17,7 +17,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result> OnFailure(this Task<Result> task, Func<Error, Error> func)
@@ -28,7 +28,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result> OnFailure(this Task<Result> task, Func<Error, string> func)
@@ -39,7 +39,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and the original result is returned.
+        /// If an unsuccessful result (a failure) the function is run and the original result is returned.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result> OnFailure(this Task<Result> task, Action<Error> action)
@@ -49,7 +49,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and the original result is returned.
+        /// If an unsuccessful result (a failure) the function is run and the original result is returned.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result> OnFailure(this Task<Result> task, Action action)
@@ -59,7 +59,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Func<Error, Result<T>> func)
@@ -69,7 +69,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Func<Error, Error> func)
@@ -79,7 +79,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Func<Error, string> func)
@@ -89,7 +89,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and the original result is returned.
+        /// If an unsuccessful result (a failure) the function is run and the original result is returned.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Action<string> action)
@@ -99,7 +99,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and the original result is returned.
+        /// If an unsuccessful result (a failure) the function is run and the original result is returned.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Action action)
@@ -109,7 +109,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result> OnFailure(this Result result, Func<Error, Task<Result>> func)
@@ -123,7 +123,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Result<T> result, Func<Error, Task<Result<T>>> func)
@@ -137,7 +137,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Result<T> result, Func<Error, Task<Error>> func)
@@ -153,7 +153,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Result<T> result, Func<Error, Task<string>> func)
@@ -169,7 +169,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result> OnFailure(this Task<Result> task, Func<Error, Task<Result>> func)
@@ -185,7 +185,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Func<Error, Task<Result<T>>> func)
@@ -201,7 +201,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Func<Error, Task<Error>> func)
@@ -219,7 +219,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// If an unsuccessful result (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
         public static async Task<Result<T>> OnFailure<T>(this Task<Result<T>> task, Func<Error, Task<string>> func)

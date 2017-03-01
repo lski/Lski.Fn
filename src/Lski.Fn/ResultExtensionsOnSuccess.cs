@@ -6,7 +6,7 @@ namespace Lski.Fn
     public static partial class ResultExtensions
     {
         /// <summary>
-        /// Runs passed function and returns a new Result&lt;T&gt;, otherwise returns a new Failed Result&lt;T&gt;
+        /// If a successful runs passed function and returns a new Result&lt;T&gt;, otherwise function doesnt run and returns a new Failed Result&lt;T&gt;
         /// </summary>
         [DebuggerStepThrough]
         public static Result<T> OnSuccess<T>(this Result result, Func<Result<T>> func)
@@ -15,7 +15,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// Runs passed function and returns a new Result, otherwise returns a new Failed Result
+        /// If a successful runs passed function and returns a new Result, otherwise function doesnt run and returns a new Failed Result
         /// </summary>
         [DebuggerStepThrough]
         public static Result OnSuccess<T>(this Result result, Func<Result> func)
@@ -24,7 +24,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// Runs passed function and returns the original Result, otherwise returns a new Failed Result
+        /// If a successful runs passed function and returns the original Result, otherwise action doesnt run and returns a new Failed Result
         /// </summary>
         [DebuggerStepThrough]
         public static Result OnSuccess(this Result result, Action action)
@@ -38,7 +38,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// Runs passed function and returns a new Result&lt;T&gt;, otherwise returns a new Failed Result&lt;T&gt;
+        /// If a successful runs passed function and returns a new Result&lt;T&gt;, otherwise function doesnt run and returns a new Failed Result&lt;T&gt;
         /// </summary>
         [DebuggerStepThrough]
         public static Result<T2> OnSuccess<T1, T2>(this Result<T1> result, Func<T1, Result<T2>> func)
@@ -47,7 +47,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// Runs passed function and returns a new Result&lt;T&gt;, otherwise returns a new Failed Result&lt;T&gt;
+        /// If a successful runs passed function and returns a new Result&lt;T&gt;, otherwise function doesnt run and returns a new Failed Result&lt;T&gt;
         /// </summary>
         [DebuggerStepThrough]
         public static Result<T2> OnSuccess<T1, T2>(this Result<T1> result, Func<T1, T2> func)
@@ -56,7 +56,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// Runs passed function and returns the original Result&lt;T&gt;, otherwise returns a new Failed Result&lt;T&gt;
+        /// If a successful runs passed function and returns the original Result&lt;T&gt;, otherwise action doesnt run and returns a new Failed Result&lt;T&gt;
         /// </summary>
         [DebuggerStepThrough]
         public static Result<T> OnSuccess<T>(this Result<T> result, Action action)
@@ -70,7 +70,7 @@ namespace Lski.Fn
         }
 
         /// <summary>
-        /// Runs passed function and returns the original Result&lt;T&gt;, otherwise returns a new Failed Result&lt;T&gt;
+        /// If a successful runs passed function and returns the original Result&lt;T&gt;, otherwise action doesnt run and returns a new Failed Result&lt;T&gt;
         /// </summary>
         [DebuggerStepThrough]
         public static Result<T> OnSuccess<T>(this Result<T> result, Action<T> action)

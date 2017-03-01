@@ -32,7 +32,7 @@ namespace Lski.Fn
         /// Allows implicit casting between result and its underlying type
         /// </summary>
         [DebuggerStepThrough]
-        public static implicit operator Result<T>(T value) => Result.Ok(value);
+        public static implicit operator Result<T>(T value) => Result.Success(value);
 
         /// <summary>
         /// Compare the underlying values
@@ -68,7 +68,7 @@ namespace Lski.Fn
 
             if (obj is T)
             {
-                other = Result.Ok((T)obj);
+                other = Result.Success((T)obj);
             }
             else if (obj is Result<T>)
             {

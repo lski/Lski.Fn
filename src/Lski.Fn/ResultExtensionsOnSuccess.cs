@@ -52,7 +52,7 @@ namespace Lski.Fn
         [DebuggerStepThrough]
         public static Result<T2> OnSuccess<T1, T2>(this Result<T1> result, Func<T1, T2> func)
         {
-            return result.IsSuccess ? Result.Ok(func(result.Value)) : Result.Fail<T2>(result.Error);
+            return result.IsSuccess ? Result.Success(func(result.Value)) : Result.Fail<T2>(result.Error);
         }
 
         /// <summary>

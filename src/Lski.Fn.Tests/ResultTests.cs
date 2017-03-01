@@ -11,7 +11,7 @@ namespace Lski.Fn.Tests
         public void SetValueIsCorrect()
         {
 
-            var result = Result.Ok("success");
+            var result = Result.Success("success");
 
             result.Value.Should().Be("success");
 
@@ -41,7 +41,7 @@ namespace Lski.Fn.Tests
         [Fact]
         public void OnSuccessIsValid()
         {
-            var result = Result.Ok("success");
+            var result = Result.Success("success");
             var run = false;
 
             result.OnSuccess((val) => { run = true; });
@@ -87,7 +87,7 @@ namespace Lski.Fn.Tests
 
             run = false;
 
-            var result2 = result.OnFailure((err) => Result.Ok<string>("success"));
+            var result2 = result.OnFailure((err) => Result.Success<string>("success"));
 
             result2.Should().BeAssignableTo(typeof(Result<string>));
 
@@ -130,7 +130,7 @@ namespace Lski.Fn.Tests
         public void OnFailureAsyncTests()
         {
             var result = Result.Fail<string>("error")
-                .OnFailure(val => Result.Ok("we are ok"))
+                .OnFailure(val => Result.Success("we are ok"))
                 .OnFailure(val => val.ToString())
                 .OnSuccess(val => "we should not hit here at all")
                 .OnFailure(val => Result.Fail(val + " no we arent"));
@@ -151,9 +151,9 @@ namespace Lski.Fn.Tests
         [Fact]
         public void CompareTest()
         {
-            var result = Result.Ok("a");
-            var result2 = Result.Ok("a");
-            var result3 = Result.Ok("b");
+            var result = Result.Success("a");
+            var result2 = Result.Success("a");
+            var result3 = Result.Success("b");
 
             (result == result2).Should().BeTrue();
             (result == result3).Should().BeFalse();

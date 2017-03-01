@@ -15,7 +15,7 @@ namespace Lski.Fn
         public static async Task<Result<T>> ToSuccess<T>(this Task<T> task)
         {
             var result = await task.ConfigureAwait(false);
-            return Result.Ok(result);
+            return Result.Success(result);
         }
 
         /// <summary>

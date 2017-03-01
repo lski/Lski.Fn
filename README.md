@@ -17,11 +17,18 @@ Create a Result:
 
 var result1 = "success".ToSuccess();  
 // or directly
-var result2 = Result.Ok("success");
+var result2 = Result.Success("success");
 // or implicitly casted
 Result<string> result3 = "success";
 
 // result1 == result2 == result3
+
+// Create a failed result
+var result4 = "an error occured".ToFail<string>(); 
+// or directly
+var result5 = Result.Fail<string>("An error occured");
+
+// result4 == result5
 ``` 
 
 Use a Result:
@@ -31,7 +38,9 @@ var result = "success".ToSuccess();
 if (result.IsSuccess) {
     var val = result.Value; // If IsSuccess, result.Value can not be null
 }
-else if (result.IsFailure) {
+
+var result = Result.Fail<string>("An error occured");
+if (result.IsFailure) {
     var err = result.Error;
 }
 
@@ -42,7 +51,7 @@ else if (result.IsFailure) {
     });
 
 // result is a failure
-Result.Fail<string>("An error occured")
+"an error occured".ToFail<string>()
     .OnFailure((err) => {
         // Do Stuff only if a failure
     });

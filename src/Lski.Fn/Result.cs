@@ -41,7 +41,7 @@ namespace Lski.Fn
         /// Creates a successful result
         /// </summary>
         [DebuggerStepThrough]
-        public static Result Ok() => new ResultSuccess();
+        public static Result Success() => new ResultSuccess();
 
         /// <summary>
         /// Creates a successful result with a value
@@ -50,7 +50,7 @@ namespace Lski.Fn
         /// A successful result should not contain a null value. Use Maybe&lt;T&gt; to store potentially empty values.
         /// </exception>
         [DebuggerStepThrough]
-        public static Result<T> Ok<T>(T data) => new ResultSuccess<T>(data);
+        public static Result<T> Success<T>(T data) => new ResultSuccess<T>(data);
 
         /// <summary>
         /// Creates an unsuccessful result with error message

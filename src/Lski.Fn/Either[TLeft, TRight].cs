@@ -30,7 +30,7 @@ namespace Lski.Fn
         /// <exception cref="ArgumentNullException">
         /// Only if the correct side function is null, the other side can be null without exception.
         /// </exception>
-        public abstract T Do<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc);
+        public abstract T LeftOrRight<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc);
 
         /// <summary>
         /// Runs only the appropriate action and returns this either object unchanged.
@@ -38,7 +38,7 @@ namespace Lski.Fn
         /// <exception cref="ArgumentNullException">
         /// Only if the correct side function is null, the other side can be null without exception.
         /// </exception>
-        public abstract Either<TLeft, TRight> Do(Action<TLeft> leftAct, Action<TRight> rightAct);
+        public abstract Either<TLeft, TRight> LeftOrRight(Action<TLeft> leftAct, Action<TRight> rightAct);
 
         /// <summary>
         /// Returns the value if this is a left sided either, otherwise it throws an exception as a return value is expected, use in combination with IsLeft/IsRight
@@ -166,7 +166,7 @@ namespace Lski.Fn
                 return false;
             }
 
-            return this.Do(l =>
+            return this.LeftOrRight(l =>
             {
                 var otherLeft = other.Left();
                 return (l != null && l.Equals(otherLeft)) || (l == null && otherLeft == null);

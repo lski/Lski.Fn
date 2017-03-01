@@ -81,7 +81,7 @@ if (myVar.HasValue) {
 
 Or use a lamda:
 ```csharp
-myVar.Do((val) => {
+myVar.LeftOrRight((val) => {
     // We know for certain val is not null and only runs if the maybe contains a value
 });
 ```
@@ -107,16 +107,16 @@ __*NB*__ The Maybe pattern is sometimes called "Option" and is in F#
 
 ## Either
 
-Either<TFirst, TSecond> can be thought of as an intelligent Tuple, but just storing a single value. Useful when you need to return either one of two valeus (types) from a function. 
+Either<TLeft, TRight> can be thought of as an intelligent Tuple, but just storing a single value. Useful when you need to return either one of two valeus (types) from a function. 
 
 Either also provides the ability to handle different execution paths.
 
 ```csharp
-var either = Either.First<string, int>("left");
+var either = Either.Left<string, int>("left");
 // or implicitly (left and right types need to be different for this to work)
-Either.First<string, int> either = "left";
+Either.Left<string, int> either = "left";
 
-either.Do((val) = {
+either.LeftOrRight((val) = {
     // Runs as the first was chosen is valid
 }),
 (val) => {

@@ -13,7 +13,7 @@ namespace Lski.Fn
         /// Runs only the appropriate function and returns the value from than function.
         /// </summary>
         [DebuggerStepThrough]
-        public static async Task<T> Do<T, TLeft, TRight>(this Either<TLeft, TRight> either, Func<TLeft, Task<T>> leftFunc, Func<TRight, Task<T>> rightFunc)
+        public static async Task<T> LeftOrRight<T, TLeft, TRight>(this Either<TLeft, TRight> either, Func<TLeft, Task<T>> leftFunc, Func<TRight, Task<T>> rightFunc)
         {
             return either.IsLeft ?
                 await either.Left(leftFunc).ConfigureAwait(false)
@@ -48,10 +48,10 @@ namespace Lski.Fn
         /// Runs only the appropriate function and returns the value from than function.
         /// </summary>
         [DebuggerStepThrough]
-        public static async Task<T> Do<T, TLeft, TRight>(this Task<Either<TLeft, TRight>> task, Func<TLeft, Task<T>> leftFunc, Func<TRight, Task<T>> rightFunc)
+        public static async Task<T> LeftOrRight<T, TLeft, TRight>(this Task<Either<TLeft, TRight>> task, Func<TLeft, Task<T>> leftFunc, Func<TRight, Task<T>> rightFunc)
         {
             var either = await task.ConfigureAwait(false);
-            return await either.Do(leftFunc, rightFunc).ConfigureAwait(false);
+            return await either.LeftOrRight(leftFunc, rightFunc).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -84,10 +84,10 @@ namespace Lski.Fn
         /// Runs only the appropriate function and returns the value from than function.
         /// </summary>
         [DebuggerStepThrough]
-        public static async Task<T> Do<T, TLeft, TRight>(this Task<Either<TLeft, TRight>> task, Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc)
+        public static async Task<T> LeftOrRight<T, TLeft, TRight>(this Task<Either<TLeft, TRight>> task, Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc)
         {
             var either = await task.ConfigureAwait(false);
-            return either.Do(leftFunc, rightFunc);
+            return either.LeftOrRight(leftFunc, rightFunc);
         }
 
         /// <summary>
@@ -120,10 +120,10 @@ namespace Lski.Fn
         /// Runs only the appropriate function and returns the value from than function.
         /// </summary>
         [DebuggerStepThrough]
-        public static async Task<Either<TLeft, TRight>> Do<TLeft, TRight>(this Task<Either<TLeft, TRight>> task, Action<TLeft> leftAct, Action<TRight> rightAct)
+        public static async Task<Either<TLeft, TRight>> LeftOrRight<TLeft, TRight>(this Task<Either<TLeft, TRight>> task, Action<TLeft> leftAct, Action<TRight> rightAct)
         {
             var either = await task.ConfigureAwait(false);
-            either.Do(leftAct, rightAct);
+            either.LeftOrRight(leftAct, rightAct);
             return either;
         }
 

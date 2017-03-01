@@ -12,7 +12,7 @@ namespace Lski.Fn.Tests
         {
             var left = Either.Left<string, int>("a value");
 
-            var result = left.Do((val) => val + " plus", (v) => v.ToString());
+            var result = left.LeftOrRight((val) => val + " plus", (v) => v.ToString());
 
             result.Should().Be("a value plus");
         }
@@ -21,7 +21,7 @@ namespace Lski.Fn.Tests
         {
             var either = Either.Left<string, string>("left");
 
-            var val = await either.Do(async (vall) => await Blah("left"), async (valr) => await Blah("right"));
+            var val = await either.LeftOrRight(async (vall) => await Blah("left"), async (valr) => await Blah("right"));
 
             val.Should().Be("left");
         }
@@ -36,7 +36,7 @@ namespace Lski.Fn.Tests
         {
             var right = Either.Right<string, int>(1);
 
-            var result = right.Do((val) => val + " plus", (v) => v.ToString());
+            var result = right.LeftOrRight((val) => val + " plus", (v) => v.ToString());
 
             result.Should().Be("1");
         }
@@ -46,17 +46,17 @@ namespace Lski.Fn.Tests
         {
             var right = Either.Left<string, string>("a left value");
 
-            var result = right.Do((val) => val + " plus", (v) => v.ToString());
+            var result = right.LeftOrRight((val) => val + " plus", (v) => v.ToString());
 
             result.Should().Be("a left value plus");
         }
 
         [Fact]
-        public async Task DoAsyncTest()
+        public async Task LeftOrRightAsyncTest()
         {
             var right = Either.Left<string, string>("a left value");
 
-            var result = await right.Do(async (val) => await Task.FromResult(val + " plus"), async (v) => await Task.FromResult(v.ToString()));
+            var result = await right.LeftOrRight(async (val) => await Task.FromResult(val + " plus"), async (v) => await Task.FromResult(v.ToString()));
 
             result.Should().Be("a left value plus");
         }
@@ -68,7 +68,7 @@ namespace Lski.Fn.Tests
 
             string result = null;
 
-            left.Do((l) =>
+            left.LeftOrRight((l) =>
             {
                 result = l;
             }, (r) =>

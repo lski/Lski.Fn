@@ -20,7 +20,7 @@ namespace Lski.Fn
 
         public override bool IsRight => true;
 
-        public override Either<TLeft, TRight> Do(Action<TLeft> leftAct, Action<TRight> rightAct)
+        public override Either<TLeft, TRight> LeftOrRight(Action<TLeft> leftAct, Action<TRight> rightAct)
         {
             if (rightAct == null)
             {
@@ -31,7 +31,7 @@ namespace Lski.Fn
             return this;
         }
 
-        public override T Do<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc)
+        public override T LeftOrRight<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc)
         {
             return rightFunc != null ? rightFunc(_value) : throw new ArgumentNullException(nameof(rightFunc));
         }

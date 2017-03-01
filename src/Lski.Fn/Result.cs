@@ -55,24 +55,36 @@ namespace Lski.Fn
         /// <summary>
         /// Creates an unsuccessful result with error message
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// If error is null
+        /// </exception>
         [DebuggerStepThrough]
         public static Result Fail(string error) => new ResultFailed(error);
 
         /// <summary>
         /// Creates an unsuccessful result with passed error of the stated type.
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// If error is null
+        /// </exception>
         [DebuggerStepThrough]
         public static Result<T> Fail<T>(string error) => new ResultFailed<T>(error);
 
         /// <summary>
         /// Creates an unsuccessful result with error message
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// If error is null
+        /// </exception>
         [DebuggerStepThrough]
         public static Result Fail(Error error) => new ResultFailed(error);
 
         /// <summary>
         /// Creates an unsuccessful result with passed error of the stated type.
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// If error is null
+        /// </exception>
         [DebuggerStepThrough]
         public static Result<T> Fail<T>(Error error) => new ResultFailed<T>(error);
 

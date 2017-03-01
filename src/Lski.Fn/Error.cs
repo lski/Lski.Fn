@@ -12,6 +12,9 @@ namespace Lski.Fn
         ///<summary>
         /// Represents an Failed message from a Result
         ///</summary>
+        /// <exception cref="ArgumentNullException">
+        /// If the value is null
+        /// </exception>
         public Error(string message)
         {
             if (message == null)

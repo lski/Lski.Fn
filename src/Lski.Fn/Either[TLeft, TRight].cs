@@ -27,18 +27,24 @@ namespace Lski.Fn
         /// <summary>
         /// Runs only the appropriate function and returns the value from than function.
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Only if the correct side function is null, the other side can be null without exception.
+        /// </exception>
         public abstract T Do<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc);
 
         /// <summary>
         /// Runs only the appropriate action and returns this either object unchanged.
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// Only if the correct side function is null, the other side can be null without exception.
+        /// </exception>
         public abstract Either<TLeft, TRight> Do(Action<TLeft> leftAct, Action<TRight> rightAct);
 
         /// <summary>
         /// Returns the value if this is a left sided either, otherwise it throws an exception as a return value is expected, use in combination with IsLeft/IsRight
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Right sided either
+        /// Thrown if this is a right sided either
         /// </exception>
         public abstract TLeft Left();
 
@@ -46,13 +52,19 @@ namespace Lski.Fn
         /// Runs only if this either is left sided, otherwise throws an exception as a return value is expected, use in combination with IsLeft/IsRight
         /// </summary>
         /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a right sided either
+        /// Thrown if this is a left sided either
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// If the func is null
         /// </exception>
         public abstract T Left<T>(Func<TLeft, T> func);
 
         /// <summary>
         /// Runs only if either is left sided, and returns the either unchanged for chaining. Does NOT throw exception if a right-sided either.
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// If the action is null
+        /// </exception>
         public abstract Either<TLeft, TRight> Left(Action<TLeft> action);
 
         /// <summary>
@@ -69,11 +81,17 @@ namespace Lski.Fn
         /// <exception cref="InvalidOperationException">
         /// Thrown if this is a Left sided either
         /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// If the func is null
+        /// </exception>
         public abstract T Right<T>(Func<TRight, T> func);
 
         /// <summary>
         /// Runs only if either is right sided, and returns the either unchanged for chaining. Does NOT throw exception if a right-sided either.
         /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// If the action is null
+        /// </exception>
         public abstract Either<TLeft, TRight> Right(Action<TRight> action);
 
         /// <summary>

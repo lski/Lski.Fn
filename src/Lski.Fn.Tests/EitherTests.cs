@@ -80,6 +80,19 @@ namespace Lski.Fn.Tests
         }
 
         [Fact]
+        public void LeftAndRightChainTests()
+        {
+            var either = Either.Right<string, int>(10);
+
+            either
+                .Left(val => "hello world")
+                .Right(val => val+10)
+                .Left(val => val.Replace("world", "universe"))
+                .Right(val => "wow its " + val)
+                .Right().Should().Be("wow its 20");
+        }
+
+        [Fact]
         public void LeftOnlyActionTest()
         {
             var either = Either.Left<string, string>("left");
@@ -90,14 +103,15 @@ namespace Lski.Fn.Tests
 
             var eitherTwo = Either.Left<string, string>("left");
 
-            Action a = () => {
+            var didRun = false;
+            var resultTwo = eitherTwo.Right(val =>
+            {
+                didRun = true;
+                return "right";
+            });
 
-                var resultTwo = eitherTwo.Right(val => 100);
-
-                resultTwo.Should().Be(0);
-            };
-
-            a.ShouldThrow<InvalidOperationException>();
+            resultTwo.Left().Should().Be("left");
+            didRun.Should().BeFalse();
         }
 
         [Fact]
@@ -107,18 +121,19 @@ namespace Lski.Fn.Tests
 
             var resultOne = either.Right((val) => 10);
 
-            resultOne.Should().Be(10);
+            resultOne.Right().Should().Be(10);
 
             var eitherTwo = Either.Right<string, string>("right");
 
-            Action a = () => {
+            var didRun = false;
+            var resultTwo = eitherTwo.Left(val =>
+            {
+                didRun = true;
+                return "left";
+            });
 
-                var resultTwo = eitherTwo.Left(val => 100);
-
-                resultTwo.Should().Be(0);
-            };
-
-            a.ShouldThrow<InvalidOperationException>();
+            resultTwo.Right().Should().Be("right");
+            didRun.Should().BeFalse();
         }
 
         [Fact]

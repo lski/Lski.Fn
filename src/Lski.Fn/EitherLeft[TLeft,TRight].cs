@@ -38,9 +38,14 @@ namespace Lski.Fn
 
         public override TLeft Left() => _value;
 
-        public override T Left<T>(Func<TLeft, T> func)
+        public override Either<TLeftOut, TRight> Left<TLeftOut>(Func<TLeft, TLeftOut> func)
         {
-            return func != null ? func(_value) : throw new ArgumentNullException(nameof(func));
+            if (func == null)
+            {
+                throw new ArgumentNullException(nameof(func));
+            }
+
+            return Either.Left<TLeftOut, TRight>(func(_value));
         }
 
         public override Either<TLeft, TRight> Left(Action<TLeft> action)
@@ -58,9 +63,9 @@ namespace Lski.Fn
             throw new InvalidOperationException("A left-sided either does not contain a right value");
         }
 
-        public override T Right<T>(Func<TRight, T> func)
+        public override Either<TLeft, TRightOut> Right<TRightOut>(Func<TRight, TRightOut> func)
         {
-            throw new InvalidOperationException("A left-sided either does not contain a right value");
+            return Either.Left<TLeft, TRightOut>(_value);
         }
 
         public override Either<TLeft, TRight> Right(Action<TRight> action) => this;

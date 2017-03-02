@@ -49,18 +49,15 @@ namespace Lski.Fn
         public abstract TLeft Left();
 
         /// <summary>
-        /// Runs only if this either is left sided, otherwise throws an exception as a return value is expected, use in combination with IsLeft/IsRight
+        /// Runs only if this either is left sided.
         /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a left sided either
-        /// </exception>
         /// <exception cref="ArgumentNullException">
-        /// If the func is null
+        /// If the func is null or returned value from the func is null
         /// </exception>
-        public abstract T Left<T>(Func<TLeft, T> func);
+        public abstract Either<TLeftOut, TRight> Left<TLeftOut>(Func<TLeft, TLeftOut> left);
 
         /// <summary>
-        /// Runs only if either is left sided, and returns the either unchanged for chaining. Does NOT throw exception if a right-sided either.
+        /// Runs only if either is left sided
         /// </summary>
         /// <exception cref="ArgumentNullException">
         /// If the action is null
@@ -76,18 +73,15 @@ namespace Lski.Fn
         public abstract TRight Right();
 
         /// <summary>
-        /// Runs only if this either is right sided, otherwise throws an exception as a return value is expected, use in combination with IsLeft/IsRight
+        /// Runs only if this either is right sided
         /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Left sided either
-        /// </exception>
         /// <exception cref="ArgumentNullException">
-        /// If the func is null
+        /// If the func is null or the func returns a null value
         /// </exception>
-        public abstract T Right<T>(Func<TRight, T> func);
+        public abstract Either<TLeft, TRightOut> Right<TRightOut>(Func<TRight, TRightOut> func);
 
         /// <summary>
-        /// Runs only if either is right sided, and returns the either unchanged for chaining. Does NOT throw exception if a right-sided either.
+        /// Runs only if either is right sided
         /// </summary>
         /// <exception cref="ArgumentNullException">
         /// If the action is null

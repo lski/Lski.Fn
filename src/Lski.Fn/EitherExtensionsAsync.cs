@@ -9,8 +9,29 @@ namespace Lski.Fn
     /// </summary>
     public static class EitherExtensionsAsync
     {
-        // TODO [LC] Add task Left/Right getters
-        
+        /// <summary>
+        /// Returns the value if this is a left sided either, otherwise it throws an exception as a return value is expected, use in combination with IsLeft/IsRight
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if this is a right sided either
+        /// </exception>
+        public static async Task<TLeft> Left<TLeft, TRight>(this Task<Either<TLeft, TRight>> task)
+        {
+            var either = await task.ConfigureAwait(false);
+            return either.Left();
+        }
+
+        /// <summary>
+        /// Returns the value if this is a right sided either, otherwise it throws an exception as a return value is expected, use in combination with IsLeft/IsRight
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if this is a Left sided either
+        /// </exception>
+        public static async Task<TLeft> Right<TLeft, TRight>(this Task<Either<TLeft, TRight>> task)
+        {
+            var either = await task.ConfigureAwait(false);
+            return either.Left();
+        }
 
         /// <summary>
         /// Runs only the appropriate function and returns the value from than function.

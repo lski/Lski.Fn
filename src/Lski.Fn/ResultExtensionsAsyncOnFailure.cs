@@ -23,8 +23,8 @@ namespace Lski.Fn
         public static async Task<Result> OnFailure(this Task<Result> task, Func<Error, Error> func)
         {
             var result = await task.ConfigureAwait(false);
-            var err = func(result.Error);
-            return Result.Fail(err);
+            
+            return result.IsFailure ? Result.Fail(func(result.Error)) : result;
         }
 
         /// <summary>
@@ -34,8 +34,8 @@ namespace Lski.Fn
         public static async Task<Result> OnFailure(this Task<Result> task, Func<Error, string> func)
         {
             var result = await task.ConfigureAwait(false);
-            var err = func(result.Error);
-            return Result.Fail(err);
+            
+            return result.IsFailure ? Result.Fail(func(result.Error)) : result;
         }
 
         /// <summary>

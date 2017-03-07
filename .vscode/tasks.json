@@ -23,6 +23,7 @@
                 "${workspaceRoot}\\src\\Lski.Fn.Tests\\Lski.Fn.Tests.csproj"
             ],
             "isTestCommand": true,
+            "showOutput": "always",
             "problemMatcher": "$msCompile"
         },
         {

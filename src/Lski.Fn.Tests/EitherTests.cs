@@ -12,23 +12,9 @@ namespace Lski.Fn.Tests
         {
             var left = Either.Left<string, int>("a value");
 
-            var result = left.LeftOrRight((val) => val + " plus", (v) => v.ToString());
+            var result = left.ToValue((v) => v + " plus", (v) => v.ToString());
 
             result.Should().Be("a value plus");
-        }
-
-        public async Task AsyncTest()
-        {
-            var either = Either.Left<string, string>("left");
-
-            var val = await either.LeftOrRight(async (vall) => await Blah("left"), async (valr) => await Blah("right"));
-
-            val.Should().Be("left");
-        }
-
-        public async Task<string> Blah(string blah)
-        {
-            return await Task.FromResult("");
         }
 
         [Fact]
@@ -36,17 +22,17 @@ namespace Lski.Fn.Tests
         {
             var right = Either.Right<string, int>(1);
 
-            var result = right.LeftOrRight((val) => val + " plus", (v) => v.ToString());
+            var result = right.ToValue(v => v + " plus", (v) => v.ToString());
 
             result.Should().Be("1");
         }
 
         [Fact]
-        public void SetSameTypesTest()
+        public void SetEitherWithSameTypesTest()
         {
             var right = Either.Left<string, string>("a left value");
 
-            var result = right.LeftOrRight((val) => val + " plus", (v) => v.ToString());
+            var result = right.ToValue(v => v + " plus", v => v.ToString());
 
             result.Should().Be("a left value plus");
         }
@@ -54,42 +40,73 @@ namespace Lski.Fn.Tests
         [Fact]
         public async Task LeftOrRightAsyncTest()
         {
-            var right = Either.Left<string, string>("a left value");
+            var either = Either.Left<string, string>("left1");
 
-            var result = await right.LeftOrRight(async (val) => await Task.FromResult(val + " plus"), async (v) => await Task.FromResult(v.ToString()));
+            var val = await either.ToValue(async (vall) => await Blah("left2"), async (valr) => await Blah("right"));
 
-            result.Should().Be("a left value plus");
+            val.Should().Be("left2");
+        }
+
+        public async Task<string> Blah(string blah) => await Task.FromResult(blah);
+
+        [Fact]
+        public void CorrectActionFiredTest()
+        {
+            string result = null;
+
+            var left = Either.Left<string, string>("left")
+                .LeftOrRight((l) => { result = l; }, (r) => { result = r; });
+
+            result.Should().Be("left");
+
+            left.Left(v => { result = v + "2"; }).Right(v => { result = v + "not run"; });
+
+            result.Should().Be("left2");
+
+            var right = Either.Right<string, string>("right")
+                .LeftOrRight((l) => { result = l; }, (r) => { result = r; });
+
+            result.Should().Be("right");
+
+            right.Left(l => { result = l + "not run"; }).Right(v => { result = v + "2"; });
+
+            result.Should().Be("right2");
         }
 
         [Fact]
-        public void ActionFiredTest()
+        public void CorrectFuncFiredTest()
         {
-            var left = Either.Left<string, string>("left");
+            var left = Either.Left<string, string>("left")
+                .LeftOrRight(l => l += 1, r => r += "not run");
 
-            string result = null;
+            left.ToLeft().Should().Be("left1");
 
-            left.LeftOrRight((l) =>
-            {
-                result = l;
-            }, (r) =>
-            {
-                result = r;
-            });
+            var left2 = left.Left(v => v += "2").Right(v => v += "not run");
 
-            result.Should().Be("left");
+            left2.ToLeft().Should().Be("left12");
+
+            var right = Either.Right<string, string>("right")
+                .LeftOrRight(l => l += "not run", r => r += 1);
+
+            right.ToRight().Should().Be("right1");
+
+            var right2 = right.Left(l => l += "not run").Right(v => v + "3");
+
+            right2.ToRight().Should().Be("right13");
         }
 
         [Fact]
         public void LeftAndRightChainTests()
         {
-            var either = Either.Right<string, int>(10);
-
-            either
+            var either = Either.Right<string, int>(10)
                 .Left(val => "hello world")
-                .Right(val => val+10)
+                .Right(val => val + 10)
                 .Left(val => val.Replace("world", "universe"))
-                .Right(val => "wow its " + val)
-                .Right().Should().Be("wow its 20");
+                .Right(val => "wow its " + val);
+
+            var right = either.ToRight();
+
+            right.Should().Be("wow its 20");
         }
 
         [Fact]
@@ -110,7 +127,7 @@ namespace Lski.Fn.Tests
                 return "right";
             });
 
-            resultTwo.Left().Should().Be("left");
+            resultTwo.ToLeft().Should().Be("left");
             didRun.Should().BeFalse();
         }
 
@@ -121,7 +138,7 @@ namespace Lski.Fn.Tests
 
             var resultOne = either.Right((val) => 10);
 
-            resultOne.Right().Should().Be(10);
+            resultOne.ToRight().Should().Be(10);
 
             var eitherTwo = Either.Right<string, string>("right");
 
@@ -132,7 +149,7 @@ namespace Lski.Fn.Tests
                 return "left";
             });
 
-            resultTwo.Right().Should().Be("right");
+            resultTwo.ToRight().Should().Be("right");
             didRun.Should().BeFalse();
         }
 
@@ -141,13 +158,13 @@ namespace Lski.Fn.Tests
         {
             Either<string, int> either = 1;
 
-            either.Right().Should().Be(1);
+            either.ToRight().Should().Be(1);
 
             Either<string, int> either2 = "either2";
 
-            either2.Left().Should().Be("either2");
+            either2.ToLeft().Should().Be("either2");
 
-            Action a = () => { either.Left(); };
+            Action a = () => { either.ToLeft(); };
 
             a.ShouldThrow<InvalidOperationException>();
         }

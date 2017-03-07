@@ -155,32 +155,71 @@ Either<TLeft, TRight> can be thought of as an intelligent Tuple, but just storin
 Either also provides the ability to handle different execution paths.
 
 ```csharp
-var either = Either.Left<string, int>("left");
+var either = "left".ToLeft<string, int>();
+// directly
+var either2 = Either.Left<string, int>("left");
 // or implicitly
-Either.Left<string, int> either = "left";
+Either.Left<string, int> either3 = "left";
+
+// either == either2 == either3
 ```
 
 Usage:
 ```csharp
 if (either.IsLeft) {
-    string home = either.Left();
+    // Would throw an exception if not a left-sided, hence the IsLeft check.
+    string left = either.ToLeft();
 }
+
+// does not throw an exception, but returns the default value if incorrect side
+string left = either.ToLeft("a default value"); 
 ```
 
-If wanting to handle the possibility of either side
+Use Left/Right functions to create new Either objects.
 ```csharp
-either.LeftOrRight((left) => {
+var either = Either.Left<int, string>(0);
+var either2 = either.Right(right => right + "not run");
+var either3 = either2.Left(left => left + 10);
+var either4 = either3.Left(left => left + " == 10");
+
+// either3.ToLeft() == "10 == 10";
+```
+
+Chaining; the following is the equivalent to the above:
+```csharp
+Either.Left<int, string>(0)
+    .Right(right => right + "not run")
+    .Left(left => left + 10);
+    .Left(left => left + " == 10");
+```
+
+If wanting to handle the possibility of either side at the same time:
+```csharp
+var either = Either.Left<int, string>(0);
+    
+either.LeftOrRight(left => {
         // Runs as it is a left-sided either
     }),
-    (right) => {
+    right => {
         // Does not run
     });
 ```
 
+Returning a resolved value from either side:
+```csharp
+var either = Either<string, int>(10);
+
+var result = either.ToValue(left => left += "world", right => right += " == 10");
+
+// result == "10 == 10";
+```
+
+As both functions return the same type, in this case a string, the correct func, based on the side of the either, runs and returns a value. A useful way of breaking out of an either to give a resolved value.
+
 ### References
 - [Railway Oriented Programming](https://vimeo.com/97344498) 2 Years old but still a very relevant and a great watch.
 - [Functional C#: Handling failures, input errors](http://enterprisecraftsmanship.com/2015/03/20/functional-c-handling-failures-input-errors/)
-- [CSharpFunctionalExtensions](https://github.com/vkhorikov/CSharpFunctionalExtensions) by [Vladimir Khorikov](https://github.com/vkhorikov). This project is heavily influenced by that project and has a similar API footprint.
+- [CSharpFunctionalExtensions](https://github.com/vkhorikov/CSharpFunctionalExtensions) by [Vladimir Khorikov](https://github.com/vkhorikov). This project is heavily influenced by that project
 - [The Definitive Reference To Why Maybe Is Better Than Null](http://www.nickknowlson.com/blog/2013/04/16/why-maybe-is-better-than-null/)
 - [Null has no type, but Maybe has](http://blog.ploeh.dk/2015/11/13/null-has-no-type-but-maybe-has/)
 - [Why Null is bad](http://www.yegor256.com/2014/05/13/why-null-is-bad.html)

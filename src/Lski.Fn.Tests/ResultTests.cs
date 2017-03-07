@@ -71,6 +71,20 @@ namespace Lski.Fn.Tests
         }
 
         [Fact]
+        public void OnFailureNoTypeIsValid()
+        {
+            var result = Result.Fail("error");
+
+            var newResult = result.OnFailure(err => "a string error");
+
+            newResult.IsFailure.Should().BeTrue();
+
+            var newResult2 = result.OnFailure(err => new Error("a error error?"));
+
+            newResult2.IsFailure.Should().BeTrue();
+        }
+
+        [Fact]
         public void OnFailureIsValid()
         {
             var result = Result.Fail<string>("error");
@@ -78,7 +92,6 @@ namespace Lski.Fn.Tests
 
             result.OnFailure((err) =>
             {
-
                 err.Should().Be("error");
                 run = true;
             });

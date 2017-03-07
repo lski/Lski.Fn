@@ -15,46 +15,80 @@ namespace Lski.Fn
     public abstract class Either<TLeft, TRight>
     {
         /// <summary>
-        /// States if this either is left sided or not
+        /// States if this either is left-sided or not
         /// </summary>
         public abstract bool IsLeft { get; }
 
         /// <summary>
-        /// States if this either is right sided or not
+        /// States if this either is right-sided or not
         /// </summary>
         public abstract bool IsRight { get; }
 
         /// <summary>
-        /// Runs only the appropriate function and returns the value from than function.
+        /// Runs only the appropriate function and returns the value from that function.
         /// </summary>
         /// <exception cref="ArgumentNullException">
-        /// Only if the correct side function is null, the other side can be null without exception.
+        /// Only thrown if right-sided and rightFunc is null, or if left-sided and leftFunc is null. Otherwise not thrown
         /// </exception>
-        public abstract T LeftOrRight<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc);
+        public abstract T ToValue<T>(Func<TLeft, T> leftFunc, Func<TRight, T> rightFunc);
 
         /// <summary>
         /// Runs only the appropriate action and returns this either object unchanged.
         /// </summary>
         /// <exception cref="ArgumentNullException">
-        /// Only if the correct side function is null, the other side can be null without exception.
+        /// Only thrown if right-sided and rightFunc is null, or if left-sided and leftFunc is null. Otherwise not thrown
         /// </exception>
         public abstract Either<TLeft, TRight> LeftOrRight(Action<TLeft> leftAct, Action<TRight> rightAct);
 
         /// <summary>
-        /// Returns the value if this is a left sided either, otherwise it throws an exception as a return value is expected, use in combination with IsLeft/IsRight
+        /// Runs only the appropriate function and returns a new Either.
         /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a right sided either
+        /// <exception cref="ArgumentNullException">
+        /// Only thrown if right-sided and rightFunc is null, or if left-sided and leftFunc is null. Otherwise not thrown
         /// </exception>
-        public abstract TLeft Left();
+        public abstract Either<TLeftOut, TRightOut> LeftOrRight<TLeftOut, TRightOut>(Func<TLeft, TLeftOut> leftFunc, Func<TRight, TRightOut> rightFunc);
 
         /// <summary>
-        /// Runs only if this either is left sided.
+        /// Returns the value if this is a left-sided either, otherwise it throws an exception as a return value is expected, use in combination with IsLeft/IsRight
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if this is a right-sided either
+        /// </exception>
+        public abstract TLeft ToLeft();
+
+        /// <summary>
+        /// Returns the value if this is a right-sided either, otherwise it throws an exception as a return value is expected, use in combination with IsLeft/IsRight
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown if this is a Left sided either
+        /// </exception>
+        public abstract TRight ToRight();
+
+        /// <summary>
+        /// Returns the value if this is a left sided either, otherwise returns the default
+        /// </summary>
+        public abstract TLeft ToLeft(TLeft defaultLeft);
+
+        /// <summary>
+        /// Returns the value if this is a right sided either, otherwise returns the default
+        /// </summary>
+        public abstract TRight ToRight(TRight defaultRight);
+
+        /// <summary>
+        /// Only runs func if this either is left sided, a new Either is returned
         /// </summary>
         /// <exception cref="ArgumentNullException">
         /// If the func is null or returned value from the func is null
         /// </exception>
-        public abstract Either<TLeftOut, TRight> Left<TLeftOut>(Func<TLeft, TLeftOut> left);
+        public abstract Either<TLeftOut, TRight> Left<TLeftOut>(Func<TLeft, TLeftOut> func);
+
+        /// <summary>
+        /// Only runs func if this either is right sided, a new Either is returned
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        /// If the func is null or the func returns a null value
+        /// </exception>
+        public abstract Either<TLeft, TRightOut> Right<TRightOut>(Func<TRight, TRightOut> func);
 
         /// <summary>
         /// Runs only if either is left sided
@@ -63,22 +97,6 @@ namespace Lski.Fn
         /// If the action is null
         /// </exception>
         public abstract Either<TLeft, TRight> Left(Action<TLeft> action);
-
-        /// <summary>
-        /// Returns the value if this is a right sided either, otherwise it throws an exception as a return value is expected, use in combination with IsLeft/IsRight
-        /// </summary>
-        /// <exception cref="InvalidOperationException">
-        /// Thrown if this is a Left sided either
-        /// </exception>
-        public abstract TRight Right();
-
-        /// <summary>
-        /// Runs only if this either is right sided
-        /// </summary>
-        /// <exception cref="ArgumentNullException">
-        /// If the func is null or the func returns a null value
-        /// </exception>
-        public abstract Either<TLeft, TRightOut> Right<TRightOut>(Func<TRight, TRightOut> func);
 
         /// <summary>
         /// Runs only if either is right sided
@@ -109,8 +127,8 @@ namespace Lski.Fn
         public override int GetHashCode()
         {
             return this.IsLeft
-                ? this.Left().GetHashCode()
-                : this.Right().GetHashCode();
+                ? this.ToLeft().GetHashCode()
+                : this.ToRight().GetHashCode();
         }
 
         /// <summary>
@@ -160,14 +178,14 @@ namespace Lski.Fn
                 return false;
             }
 
-            return this.LeftOrRight(l =>
+            return this.ToValue(l =>
             {
-                var otherLeft = other.Left();
+                var otherLeft = other.ToLeft();
                 return (l != null && l.Equals(otherLeft)) || (l == null && otherLeft == null);
             },
             r =>
             {
-                var otherRight = other.Right();
+                var otherRight = other.ToRight();
                 return (r != null && r.Equals(otherRight)) || (r == null && otherRight == null);
             });
         }

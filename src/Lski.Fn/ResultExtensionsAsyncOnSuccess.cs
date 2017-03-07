@@ -7,6 +7,52 @@ namespace Lski.Fn
     public static partial class ResultExtensionsAsync
     {
         /// <summary>
+        /// If a successful result runs passed function and returns a new Result, otherwise function doesnt run and returns the Failed Result
+        /// </summary>
+        [DebuggerStepThroughAttribute]
+        public static async Task<Result> OnSuccess<TIn>(this Task<Result<TIn>> task, Func<TIn, Task<Result>> func)
+        {
+            var result = await task.ConfigureAwait(false);
+            
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            return await func(result.Value).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// If a successful result runs passed function and returns a new Result, otherwise function doesnt run and returns the Failed Result
+        /// </summary>
+        [DebuggerStepThroughAttribute]
+        public static async Task<Result> OnSuccess<TIn>(this Task<Result<TIn>> task, Func<TIn, Result> func)
+        {
+            var result = await task.ConfigureAwait(false);
+            
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            return func(result.Value);
+        }
+
+        /// <summary>
+        /// If a successful result runs passed function and returns a new Result, otherwise function doesnt run and returns the Failed Result
+        /// </summary>
+        [DebuggerStepThroughAttribute]
+        public static async Task<Result> OnSuccess<TIn>(this Result<TIn> result, Func<TIn, Task<Result>> func)
+        {
+            if (result.IsFailure)
+            {
+                return result;
+            }
+
+            return await func(result.Value).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// If a successful result runs passed function and returns a new Result&lt;T&gt;, otherwise function doesnt run and returns a new Failed Result&lt;T&gt;
         /// </summary>
         [DebuggerStepThrough]
@@ -23,7 +69,6 @@ namespace Lski.Fn
         public static async Task<Result> OnSuccess<T>(this Task<Result> task, Func<Result> func)
         {
             var result = await task.ConfigureAwait(false);
-            // TODO 
             return result.IsSuccess ? func() : Result.Fail(result.Error);
         }
 

@@ -9,6 +9,32 @@ namespace Lski.Fn
         /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
         /// </summary>
         [DebuggerStepThrough]
+        public static Result OnFailure(this Result result, Func<Error, Error> func)
+        {
+            if(result.IsSuccess) {
+                return result;
+            }
+
+            return Result.Fail(func(result.Error));
+        }
+
+        /// <summary>
+        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// </summary>
+        [DebuggerStepThrough]
+        public static Result OnFailure(this Result result, Func<Error, string> func)
+        {
+            if(result.IsSuccess) {
+                return result;
+            }
+
+            return Result.Fail(func(result.Error));
+        }
+
+        /// <summary>
+        /// If a result is unsuccessful (a failure) the function is run and a new Result returned. Returns the original result if successful.
+        /// </summary>
+        [DebuggerStepThrough]
         public static Result OnFailure(this Result result, Func<Error, Result> func)
         {
             return result.IsFailure ? func(result.Error) : result;

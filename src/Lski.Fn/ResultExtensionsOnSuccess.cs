@@ -38,6 +38,15 @@ namespace Lski.Fn
         }
 
         /// <summary>
+        /// If a successful result runs passed function and returns a new Result, otherwise function doesnt run and returns the Failed Result
+        /// </summary>
+        [DebuggerStepThroughAttribute]
+        public static Result OnSuccess<TIn>(this Result<TIn> result, Func<TIn, Result> func)
+        {
+            return result.IsFailure ? result : func(result.Value);
+        }
+
+        /// <summary>
         /// If a successful runs passed function and returns a new Result&lt;T&gt;, otherwise function doesnt run and returns a new Failed Result&lt;T&gt;
         /// </summary>
         [DebuggerStepThrough]

@@ -70,7 +70,7 @@ namespace Lski.Fn
 
             return Maybe.None<TOut>();
         }
-        
+
         /// <summary>
         /// If contains a value performs the function and returns a new Maybe, otherwise returns a new Maybe.None
         /// </summary>

@@ -13,7 +13,7 @@ namespace Lski.Fn
         public static async Task<Result> OnSuccess<TIn>(this Task<Result<TIn>> task, Func<TIn, Task<Result>> func)
         {
             var result = await task.ConfigureAwait(false);
-            
+
             if (result.IsFailure)
             {
                 return result;
@@ -29,7 +29,7 @@ namespace Lski.Fn
         public static async Task<Result> OnSuccess<TIn>(this Task<Result<TIn>> task, Func<TIn, Result> func)
         {
             var result = await task.ConfigureAwait(false);
-            
+
             if (result.IsFailure)
             {
                 return result;

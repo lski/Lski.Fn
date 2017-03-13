@@ -235,5 +235,37 @@ namespace Lski.Fn
 
             return Result.Fail<T>(err);
         }
+
+        /// <summary>
+        /// If a failure result throws the exception created by the func
+        /// </summary>
+        [DebuggerStepThrough]
+        public static async Task<Result> OnFailThrow(this Task<Result> task, Func<Error, Exception> func)
+        {
+            var result = await task.ConfigureAwait(false);
+
+            if (result.IsSuccess)
+            {
+                return result;
+            }
+
+            throw func(result.Error);
+        }
+
+        /// <summary>
+        /// If a failure result throws the exception created by the func
+        /// </summary>
+        [DebuggerStepThrough]
+        public static async Task<Result<T>> OnFailThrow<T>(this Task<Result<T>> task, Func<Error, Exception> func)
+        {
+            var result = await task.ConfigureAwait(false);
+
+            if (result.IsSuccess)
+            {
+                return result;
+            }
+
+            throw func(result.Error);
+        }
     }
 }

@@ -37,5 +37,7 @@ namespace Lski.Fn
         /// </summary>
         [DebuggerStepThrough]
         public static Result<T> ToFail<T>(this string message) => Result.Fail<T>(message);
+
+
     }
 }

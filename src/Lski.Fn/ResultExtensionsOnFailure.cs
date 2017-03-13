@@ -11,7 +11,8 @@ namespace Lski.Fn
         [DebuggerStepThrough]
         public static Result OnFailure(this Result result, Func<Error, Error> func)
         {
-            if(result.IsSuccess) {
+            if (result.IsSuccess)
+            {
                 return result;
             }
 
@@ -24,7 +25,8 @@ namespace Lski.Fn
         [DebuggerStepThrough]
         public static Result OnFailure(this Result result, Func<Error, string> func)
         {
-            if(result.IsSuccess) {
+            if (result.IsSuccess)
+            {
                 return result;
             }
 
@@ -121,6 +123,34 @@ namespace Lski.Fn
             }
             action();
             return result;
+        }
+
+        /// <summary>
+        /// If a failure result throws the exception created by the func
+        /// </summary>
+        [DebuggerStepThrough]
+        public static Result OnFailThrow(this Result result, Func<Error, Exception> func)
+        {
+            if (result.IsSuccess)
+            {
+                return result;
+            }
+
+            throw func(result.Error);
+        }
+
+        /// <summary>
+        /// If a failure result throws the exception created by the func
+        /// </summary>
+        [DebuggerStepThrough]
+        public static Result<T> OnFailThrow<T>(this Result<T> result, Func<Error, Exception> func)
+        {
+            if (result.IsSuccess)
+            {
+                return result;
+            }
+
+            throw func(result.Error);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Lski.Fn
         /// If a successful runs passed function and returns a new Result, otherwise function doesnt run and returns a new Failed Result
         /// </summary>
         [DebuggerStepThrough]
-        public static Result OnSuccess<T>(this Result result, Func<Result> func)
+        public static Result OnSuccess(this Result result, Func<Result> func)
         {
             return result.IsSuccess ? func() : Result.Fail(result.Error);
         }

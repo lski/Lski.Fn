@@ -16,13 +16,7 @@ namespace Lski.Fn
         /// <exception cref="InvalidOperationException">
         /// An unsuccessful result should never contain a value.
         /// </exception>
-        public virtual T Value
-        {
-            get
-            {
-                throw new InvalidOperationException("An unsuccessful result should not have a value");
-            }
-        }
+        public virtual T Value => throw new InvalidOperationException("An unsuccessful result should not have a value");
 
         internal Result(bool success) : base(success)
         {

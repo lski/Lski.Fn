@@ -50,18 +50,18 @@ namespace Lski.Fn
         /// If a successful runs passed function and returns a new Result&lt;T&gt;, otherwise function doesnt run and returns a new Failed Result&lt;T&gt;
         /// </summary>
         [DebuggerStepThrough]
-        public static Result<T2> OnSuccess<T1, T2>(this Result<T1> result, Func<T1, Result<T2>> func)
+        public static Result<TOut> OnSuccess<TIn, TOut>(this Result<TIn> result, Func<TIn, Result<TOut>> func)
         {
-            return result.IsSuccess ? func(result.Value) : Result.Fail<T2>(result.Error);
+            return result.IsSuccess ? func(result.Value) : Result.Fail<TOut>(result.Error);
         }
 
         /// <summary>
         /// If a successful runs passed function and returns a new Result&lt;T&gt;, otherwise function doesnt run and returns a new Failed Result&lt;T&gt;
         /// </summary>
         [DebuggerStepThrough]
-        public static Result<T2> OnSuccess<T1, T2>(this Result<T1> result, Func<T1, T2> func)
+        public static Result<TOut> OnSuccess<TIn, TOut>(this Result<TIn> result, Func<TIn, TOut> func)
         {
-            return result.IsSuccess ? Result.Success(func(result.Value)) : Result.Fail<T2>(result.Error);
+            return result.IsSuccess ? Result.Success(func(result.Value)) : Result.Fail<TOut>(result.Error);
         }
 
         /// <summary>

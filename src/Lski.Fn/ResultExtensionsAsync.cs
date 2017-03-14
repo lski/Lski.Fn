@@ -59,8 +59,6 @@ namespace Lski.Fn
             return Result.Fail<T>(error);
         }
 
-
-
         /// <summary>
         /// Runs the check function if result is a success. If check returns false the a Failed result is returned with the error message
         /// </summary>

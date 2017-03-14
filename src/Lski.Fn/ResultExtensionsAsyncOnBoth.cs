@@ -30,7 +30,7 @@ namespace Lski.Fn
         /// Runs the function and provides the result object and returns a new Result.
         /// </summary>
         [DebuggerStepThrough]
-        public static async Task<Result<T2>> OnBoth<T1, T2>(this Task<Result<T1>> task, Func<Result<T1>, Result<T2>> func)
+        public static async Task<Result<TOut>> OnBoth<TIn, TOut>(this Task<Result<TIn>> task, Func<Result<TIn>, Result<TOut>> func)
         {
             var result = await task.ConfigureAwait(false);
             return func(result);
@@ -40,7 +40,7 @@ namespace Lski.Fn
         /// Runs the function and provides the result object and returns the response of the function call
         /// </summary>
         [DebuggerStepThrough]
-        public static async Task<T2> OnBoth<T1, T2>(this Task<Result<T1>> task, Func<Result<T1>, T2> func)
+        public static async Task<TOut> OnBoth<TIn, TOut>(this Task<Result<TIn>> task, Func<Result<TIn>, TOut> func)
         {
             var result = await task.ConfigureAwait(false);
             return func(result);
@@ -68,7 +68,7 @@ namespace Lski.Fn
         /// Runs the function and provides the result object and returns a new Result.
         /// </summary>
         [DebuggerStepThrough]
-        public static async Task<Result<T2>> OnBoth<T1, T2>(this Result<T1> result, Func<Result<T1>, Task<Result<T2>>> func)
+        public static async Task<Result<TOut>> OnBoth<TIn, TOut>(this Result<TIn> result, Func<Result<TIn>, Task<Result<TOut>>> func)
         {
             return await func(result).ConfigureAwait(false);
         }
@@ -77,7 +77,7 @@ namespace Lski.Fn
         /// Runs the function and provides the result object and returns the response of the function call
         /// </summary>
         [DebuggerStepThrough]
-        public static async Task<T2> OnBoth<T1, T2>(this Result<T1> result, Func<Result<T1>, Task<T2>> func)
+        public static async Task<TOut> OnBoth<TIn, TOut>(this Result<TIn> result, Func<Result<TIn>, Task<TOut>> func)
         {
             return await func(result).ConfigureAwait(false);
         }

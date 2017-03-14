@@ -21,12 +21,12 @@ namespace Lski.Fn
         /// Runs the function and provides the result object and returns a new Result.
         /// </summary>
         [DebuggerStepThrough]
-        public static Result<T2> OnBoth<T1, T2>(this Result<T1> result, Func<Result<T1>, Result<T2>> func) => func(result);
+        public static Result<TOut> OnBoth<TIn, TOut>(this Result<TIn> result, Func<Result<TIn>, Result<TOut>> func) => func(result);
 
         /// <summary>
         /// Runs the function and provides the result object and returns the response of the function call
         /// </summary>
         [DebuggerStepThrough]
-        public static T2 OnBoth<T1, T2>(this Result<T1> result, Func<Result<T1>, T2> func) => func(result);
+        public static TOut OnBoth<TIn, TOut>(this Result<TIn> result, Func<Result<TIn>, TOut> func) => func(result);
     }
 }

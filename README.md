@@ -5,6 +5,10 @@
 
 A few simple functional class; Result, Maybe and Either to enable a more functional style of programming in C#. Although written from scratch it is heavily influenced by a couple of others projects, please see the [references](#references) below.
 
+## Semantic Versioning
+
+Now the project has hit version 1.0.0 the project will fully adhere to semantic versioning, to give confidence on any breaking changes.
+
 ## Result
 
 At its simplest a Result can be used to wrap a response from an action that could potentially not succeed. If an action works as desired it can be described as the "happy path" and it can be trickey to handle the "none happy path" where things go wrong, without throwing expensive exceptions. I highly recommend the [Railway Oriented Programming](https://vimeo.com/97344498) video which explains it in better detail.
